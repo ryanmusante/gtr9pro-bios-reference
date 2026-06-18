@@ -1,5 +1,50 @@
 # Changelog
 
+## 1.2.2 - 2026-06-17
+
+Fixed
+- Typography: corrected two Performance-column notes where a quoted term opened
+  with a right single quote instead of a left one (&#x2019;Custom&#x2019; ->
+  &#x2018;Custom&#x2019; on AMD CBS OC Mode; the same on the PMF System
+  Configuration power-profile note). No content or count change.
+
+Notes
+- Second full review pass. Verified with no further changes required: all 149
+  tables well-formed; form presentation order matches firmware depth-first tree
+  order (apparent form-ID descents are parent/child boundaries, not errors);
+  Performance-tier assignments are internally consistent (no setting receives
+  conflicting advice across its occurrences); duplicate-looking rows (Trusted
+  Computing TPM/TCM blocks, RAID conditional form variants, runtime-populated
+  one-of lists) are faithful firmware artifacts and were retained intentionally.
+- Document SHA256 updated in README to 3502a9272f4b5908aeabc89f5f8591b8ff0aae61768761b153d8f9e9b5ba4c97.
+
+
+## 1.2.1 - 2026-06-17
+
+Fixed
+- Collapsed a 32-row runtime block in the Aptio USB Configuration form (Form
+  0x2750): the per-device USB mass-storage emulation dropdown was emitted as 32
+  identical `N/A` rows. These are a single runtime-repeated control, not 32
+  distinct settings; they are now represented by one summary row, matching the
+  device-enumeration collapse already applied elsewhere in v1.1.0.
+- Reconciled all settings totals against the document body. The 32 duplicate
+  rows had inflated the catalog and the cover/overview counts had drifted out of
+  sync with the per-tier breakdown. Corrected figures:
+  - Total configurable settings: 1,074 -> 1,045.
+  - Aptio Setup form-set: 213 -> 184 settings.
+  - Tier distribution now sums to 1,045 (4 CHANGE, 396 TUNE, 42 KEEP, 603
+    NEUTRAL); only the NEUTRAL count changed (634 -> 603), since the collapsed
+    rows were all NEUTRAL.
+- Form count (186), settings-table count, and all per-tier non-NEUTRAL totals
+  were already correct and are unchanged.
+
+Notes
+- No setting was removed from the catalog's coverage: the collapsed rows
+  described one control, and its full option list (Auto / Floppy / Forced FDD /
+  Hard Disk / CD-ROM) is preserved in the summary row.
+- Document SHA256 updated in README to a88f28411f024ceced60fd17971805d53c24eeec41309816f058478e58a28529.
+
+
 ## 1.2.0 - 2026-06-15
 
 Added
