@@ -81,5 +81,5 @@ before changing low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-3502a9272f4b5908aeabc89f5f8591b8ff0aae61768761b153d8f9e9b5ba4c97  GTR9Pro_BIOS_Settings.docx
+b48f80a616dbd45066b5810a7df26ccef75ef17d9f147bdbb1a242911c217872  GTR9Pro_BIOS_Settings.docx
 ```

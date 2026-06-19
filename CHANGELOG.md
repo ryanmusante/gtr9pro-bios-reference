@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.2.3 - 2026-06-19
+
+Fixed
+- Footer page-number fields rendered blank ("Page  of "). The PAGE and NUMPAGES
+  fields were emitted with a begin/separate/end sequence but no result run and
+  no dirty flag, so renderers showed nothing until a manual Update Field. Added
+  a cached result run to each and marked them dirty; the footer now reads
+  "Page N of M" on open without user action.
+- Typography: normalized the clause separator in the Performance-column notes
+  from a spaced ASCII hyphen to an em-dash (683 notes), matching the em-dash
+  already used throughout the front matter. Compound terms (e.g. Serial/debug,
+  Network-boot, all-core) and verbatim firmware strings are unchanged. No
+  content, count, or tier change.
+
+Removed
+- Vestigial empty comments part (word/comments.xml) plus its relationship and
+  content-type registration. The part held no comments and referenced nothing;
+  dropping it yields a cleaner package with no functional change.
+
+Notes
+- Counts unchanged and re-verified: 7 form-sets, 186 forms, 1,045 settings,
+  149 tables; tier distribution 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL.
+- Form presentation order remains firmware depth-first (apparent form-ID
+  descents are parent/child boundaries, not errors).
+- Document SHA256 updated in README to
+  b48f80a616dbd45066b5810a7df26ccef75ef17d9f147bdbb1a242911c217872.
+
+
 ## 1.2.2 - 2026-06-17
 
 Fixed
