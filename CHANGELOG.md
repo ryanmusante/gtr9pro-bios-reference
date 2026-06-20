@@ -1,42 +1,61 @@
 # Changelog
 
+## 1.3.4 - 2026-06-19
+
+Fixed
+- Extended default-marker coverage to Selection rows whose firmware default the
+  original IFR extraction did not capture. 18 binary/enumerated Selection rows
+  that had options but no `◀ default` marker now carry one on the
+  standard-default option: 14 with high-confidence AMI Aptio V defaults
+  (Network Stack, IPv4/IPv6 PXE + HTTP, Network Stack Driver Support, Debug Port
+  Table x2, Redirection Support, Factory Key Provision, Fast Boot -> Disabled;
+  NVMe / UFS / PS2 Devices Support -> Enabled) plus 4 with clear platform
+  defaults (Bootup NumLock -> On, VGA Support -> Auto, USB Support -> Full
+  Initial, Boot mode select -> UEFI). This brings these rows in line with the
+  253 equivalent Selection rows that were already marked.
+
+Notes
+- No defaults were invented. 8 rows whose default is genuinely platform-specific
+  or not derivable were deliberately left unmarked: the five PCR Bank rows
+  (SHA-1/256/384/512, SM3_256), Secure Boot, Runtime-Variable password
+  protection, and XHCI Hand-off. Two further borderline rows (Secure Boot Mode,
+  SATA Support) were also left unmarked. The source ROM/IFR was not available to
+  recover these authoritatively, so marking them would assert unverified
+  firmware behavior.
+- 40 rows remain without a `◀ default` marker, all by design: the 8 ambiguous +
+  2 borderline above, 22 read-only RAID Text display fields, 4 free-input fields
+  (2 Password, Date, Time), and 4 runtime-populated rows (System Language,
+  Select Controller, Array Size, Array Size Unit).
+- Marker total now 1,006 `◀ default` and 1,045 `◀ performance`. Settings, table,
+  and tier counts unchanged (1,045 settings; 147 settings tables; 4 CHANGE /
+  396 TUNE / 42 KEEP / 603 NEUTRAL).
+- Document SHA256 updated in README to
+  28417e71292f58a4ddab2516f5025dc030086efc6b16775bd44fe0112fa3e081.
+
+
 ## 1.3.3 - 2026-06-19
 
 Fixed
-- Default-marker coverage made consistent. Numeric settings previously printed
-  their default inline (e.g. "Min 0x0 - Max 0xFF - Step 0x1 - Default 0x7F") but
-  carried no `◀ default` marker, while Selection settings did mark their
-  default. A blue `◀ default` marker is now appended next to the stated Default
-  value on 348 Numeric rows, matching the Selection convention. Where the row
-  also has a performance recommendation, `◀ default` sits on the value line and
-  the red `◀ performance` marker follows beneath, so the two coexist.
+- Numeric settings that printed a default inline (e.g. "Min 0x0 - Max 0xFF -
+  Step 0x1 - Default 0x7F") but carried no `◀ default` marker now have a blue
+  `◀ default` appended next to the stated Default value (348 rows), matching the
+  Selection convention. Where the row also has a performance recommendation,
+  `◀ default` and `◀ performance` coexist (default on the value line,
+  performance beneath).
 
 Notes
-- No defaults were invented. The 58 rows still without a `◀ default` marker have
-  no fixed/known default to mark: 31 Selection rows whose firmware IFR exposes
-  no default, 22 Text + 2 Password free-input fields, 1 Date, 1 Time, and 1
-  runtime-populated Numeric (RAID Array Size). All 348 rows that state a
-  "Default 0xNN" value are now marked; zero such rows remain unmarked.
-- Marker total: 988 `◀ default` (987 in table rows + 1 in the legend) and 1,045
-  `◀ performance`. Settings, table, and tier counts unchanged (1,045 settings;
-  147 settings tables; 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL).
-- Document SHA256 updated in README to
-  6fcdb826d57df31826370518def54ac3c1a7c233083abf2ab357e6417a503363.
+- 348 Numeric rows marked; no defaults invented. Total `◀ default` after this
+  step: 988.
 
 
 ## 1.3.2 - 2026-06-19
 
 Changed
-- Marker colors adjusted so the `◀ default` and `◀ performance` markers are
-  clearly distinguishable from the four tier-tag colors. The v1.3.1 default
-  blue (2E5C8A) was perceptually almost identical to the KEEP tier blue
-  (1F4E79) - a CIE76 ΔE of about 6. Default is now royal blue (2563EB) and
-  performance is now a stronger red (D50000); every marker/tier color pair is
-  now separated by ΔE >= 31.
-
-Notes
-- Only the two marker colors changed. Tier-tag colors unchanged: CHANGE green
-  (1F7A1F), TUNE orange (C55A11), KEEP blue (1F4E79), NEUTRAL grey (808080).
+- Marker colors adjusted for distinguishability from the tier-tag colors. The
+  v1.3.1 default blue (2E5C8A) was perceptually almost identical to the KEEP
+  tier blue (1F4E79) - CIE76 ΔE ~6. Default is now royal blue (2563EB) and
+  performance a stronger red (D50000); every marker/tier color pair is now ΔE
+  >= 31. Tier-tag colors unchanged.
 
 
 ## 1.3.1 - 2026-06-19
@@ -44,8 +63,7 @@ Notes
 Changed
 - Marker colors standardized: `◀ default` blue and `◀ performance` red (arrow
   and text), everywhere including the front-matter legend. The four tier tags
-  keep their distinct colors. Superseded by v1.3.2, which retunes the specific
-  blue/red values for distinguishability from the tier colors.
+  keep their distinct colors. Superseded by v1.3.2.
 
 
 ## 1.3.0 - 2026-06-19

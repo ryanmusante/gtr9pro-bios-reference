@@ -74,11 +74,12 @@ low-level CBS, AMD Overclocking, or PMF settings.
 - Settings tables: Setting / Type / Options-Values-Range. Bracketed values are
   raw NVRAM values (usable for SCEWIN/AMISCE scripting). The factory default is
   marked with a blue `◀ default` on the default option (for selections) or next
-  to the stated Default value (for numerics). Free-input fields (text, password,
-  date, time) and a few firmware controls that expose no default are
-  unmarked. Beneath each option list, a red `◀ performance` marker gives the
-  recommended setting per option, followed by its tier tag (see "Performance
-  recommendations" above).
+  to the stated Default value (for numerics). Rows with no fixed default - free
+  input fields (text/password/date/time), runtime-populated lists, and a few
+  firmware controls whose default the IFR does not expose - are left unmarked
+  rather than guessed. Beneath each option list, a red `◀ performance` marker
+  gives the recommended setting per option, followed by its tier tag (see
+  "Performance recommendations" above).
 - Defaults shown are compiled Standard Defaults; a unit's live values may differ.
 - Many options are conditionally hidden on screen (suppress-if / grayout-if), so
   this catalog is a superset of what any single unit displays.
@@ -93,5 +94,5 @@ low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-6fcdb826d57df31826370518def54ac3c1a7c233083abf2ab357e6417a503363  GTR9Pro_BIOS_Settings.docx
+28417e71292f58a4ddab2516f5025dc030086efc6b16775bd44fe0112fa3e081  GTR9Pro_BIOS_Settings.docx
 ```
