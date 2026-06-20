@@ -38,23 +38,25 @@ out of scope (not board BIOS settings) and inventoried in Appendix A.
 
 ## Performance recommendations (v1.2.0+)
 
-Every settings table carries a per-option **Performance** recommendation: a
-recommended value for the AMD Strix Halo / Ryzen AI Max+ 395 platform with a
-one-line rationale. As of v1.3.0 the recommendation is rendered inline beneath
-each option list as a red `◀ performance` marker (mirroring the blue `◀ default`
-factory-default marker), rather than in a separate fourth column; the document
-is therefore in portrait. Where a setting has both a factory default and a
-performance recommendation, the blue `◀ default` marker sits on the default
-option/value and the red `◀ performance` marker follows on the line beneath, so
-the two coexist. Each performance marker is followed by a color-coded tier tag -
-**CHANGE** (green; change for a gain), **TUNE** (orange; workload-specific /
-expert-only), **KEEP** (blue; default already optimal), and **NEUTRAL** (grey;
-no performance impact; leave default). The marker colors (blue default, red
-performance) are deliberately chosen to be distinct from all four tier-tag
-colors. See the front-matter section "How the performance recommendations were
-derived" for the sources and caveats. TUNE entries are validated starting
-points, not guaranteed-stable values - record originals before changing
-low-level CBS, AMD Overclocking, or PMF settings.
+Settings with a genuine performance dimension carry a **Performance**
+recommendation: a recommended value for the AMD Strix Halo / Ryzen AI Max+ 395
+platform with a one-line rationale. As of v1.3.0 the recommendation is rendered
+inline beneath the option list as a red `◀ performance` marker (mirroring the
+blue `◀ default` factory-default marker), rather than in a separate fourth
+column; the document is therefore in portrait. Where a setting has both a
+factory default and a performance recommendation, the blue `◀ default` marker
+sits on the default option/value and the red `◀ performance` marker follows on
+the line beneath, so the two coexist. Each performance marker is followed by a
+color-coded tier tag - **CHANGE** (green; change for a gain), **TUNE** (orange;
+workload-specific / expert-only), and **KEEP** (blue; default already optimal).
+As of v1.3.5, settings with no performance dimension (security, connectivity,
+debug, or factory-trained values - previously tagged NEUTRAL) carry no
+`◀ performance` marker at all; only their options and `◀ default` are shown.
+The marker colors (blue default, red performance) are deliberately chosen to be
+distinct from the tier-tag colors. See the front-matter section "How the
+performance recommendations were derived" for the sources and caveats. TUNE
+entries are validated starting points, not guaranteed-stable values - record
+originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 
 ## Methodology
 
@@ -77,9 +79,10 @@ low-level CBS, AMD Overclocking, or PMF settings.
   to the stated Default value (for numerics). Rows with no fixed default - free
   input fields (text/password/date/time), runtime-populated lists, and a few
   firmware controls whose default the IFR does not expose - are left unmarked
-  rather than guessed. Beneath each option list, a red `◀ performance` marker
-  gives the recommended setting per option, followed by its tier tag (see
-  "Performance recommendations" above).
+  rather than guessed. Settings with a performance dimension also show a red
+  `◀ performance` marker beneath the option list, followed by its tier tag;
+  settings with no performance dimension show no such marker (see "Performance
+  recommendations" above).
 - Defaults shown are compiled Standard Defaults; a unit's live values may differ.
 - Many options are conditionally hidden on screen (suppress-if / grayout-if), so
   this catalog is a superset of what any single unit displays.
@@ -94,5 +97,5 @@ low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-28417e71292f58a4ddab2516f5025dc030086efc6b16775bd44fe0112fa3e081  GTR9Pro_BIOS_Settings.docx
+bf102e7c4a85d18b3c9523302b47c32f1648d857ddda5c538152093cd302297c  GTR9Pro_BIOS_Settings.docx
 ```

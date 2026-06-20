@@ -1,51 +1,51 @@
 # Changelog
 
+## 1.3.5 - 2026-06-19
+
+Changed
+- Removed the `◀ performance` marker from every setting with no performance
+  dimension (the 603 rows previously tagged NEUTRAL). NEUTRAL meant "no
+  performance impact," so the marker on those rows was contradictory; they now
+  show only their options and the blue `◀ default`. Performance markers remain
+  on the 442 rows with an actual recommendation: 396 TUNE, 42 KEEP, 4 CHANGE.
+- Front-matter legend reconciled: it no longer lists NEUTRAL as a tag and
+  instead states that settings with no performance dimension carry no
+  `◀ performance` marker. CHANGE / TUNE / KEEP descriptions are unchanged.
+
+Notes
+- `◀ performance` total: 1,045 -> 442. `◀ default` unchanged at 1,006. Settings
+  count unchanged (1,045 data rows; 603 now carry no performance marker, 442 do).
+- No recommendation text was altered; the NEUTRAL paragraphs were removed whole.
+  The document shortened from 138 to 113 pages as a result.
+- Document SHA256 updated in README to
+  bf102e7c4a85d18b3c9523302b47c32f1648d857ddda5c538152093cd302297c.
+
+
 ## 1.3.4 - 2026-06-19
 
 Fixed
-- Extended default-marker coverage to Selection rows whose firmware default the
-  original IFR extraction did not capture. 18 binary/enumerated Selection rows
-  that had options but no `◀ default` marker now carry one on the
-  standard-default option: 14 with high-confidence AMI Aptio V defaults
-  (Network Stack, IPv4/IPv6 PXE + HTTP, Network Stack Driver Support, Debug Port
-  Table x2, Redirection Support, Factory Key Provision, Fast Boot -> Disabled;
-  NVMe / UFS / PS2 Devices Support -> Enabled) plus 4 with clear platform
-  defaults (Bootup NumLock -> On, VGA Support -> Auto, USB Support -> Full
-  Initial, Boot mode select -> UEFI). This brings these rows in line with the
-  253 equivalent Selection rows that were already marked.
+- Extended default-marker coverage to 18 Selection rows whose firmware default
+  the original IFR extraction did not capture: 14 with high-confidence AMI Aptio
+  V defaults (Network Stack, IPv4/IPv6 PXE + HTTP, Network Stack Driver Support,
+  Debug Port Table x2, Redirection Support, Factory Key Provision, Fast Boot ->
+  Disabled; NVMe / UFS / PS2 Devices Support -> Enabled) plus 4 with clear
+  platform defaults (Bootup NumLock -> On, VGA Support -> Auto, USB Support ->
+  Full Initial, Boot mode select -> UEFI).
 
 Notes
-- No defaults were invented. 8 rows whose default is genuinely platform-specific
-  or not derivable were deliberately left unmarked: the five PCR Bank rows
-  (SHA-1/256/384/512, SM3_256), Secure Boot, Runtime-Variable password
-  protection, and XHCI Hand-off. Two further borderline rows (Secure Boot Mode,
-  SATA Support) were also left unmarked. The source ROM/IFR was not available to
-  recover these authoritatively, so marking them would assert unverified
-  firmware behavior.
-- 40 rows remain without a `◀ default` marker, all by design: the 8 ambiguous +
-  2 borderline above, 22 read-only RAID Text display fields, 4 free-input fields
-  (2 Password, Date, Time), and 4 runtime-populated rows (System Language,
-  Select Controller, Array Size, Array Size Unit).
-- Marker total now 1,006 `◀ default` and 1,045 `◀ performance`. Settings, table,
-  and tier counts unchanged (1,045 settings; 147 settings tables; 4 CHANGE /
-  396 TUNE / 42 KEEP / 603 NEUTRAL).
-- Document SHA256 updated in README to
-  28417e71292f58a4ddab2516f5025dc030086efc6b16775bd44fe0112fa3e081.
+- No defaults were invented. 8 genuinely platform-specific rows (five PCR Banks,
+  Secure Boot, Runtime-Variable password protection, XHCI Hand-off) and 2
+  borderline rows (Secure Boot Mode, SATA Support) were left unmarked, as the
+  source ROM/IFR was unavailable to recover them authoritatively.
 
 
 ## 1.3.3 - 2026-06-19
 
 Fixed
-- Numeric settings that printed a default inline (e.g. "Min 0x0 - Max 0xFF -
-  Step 0x1 - Default 0x7F") but carried no `◀ default` marker now have a blue
-  `◀ default` appended next to the stated Default value (348 rows), matching the
-  Selection convention. Where the row also has a performance recommendation,
-  `◀ default` and `◀ performance` coexist (default on the value line,
-  performance beneath).
-
-Notes
-- 348 Numeric rows marked; no defaults invented. Total `◀ default` after this
-  step: 988.
+- Numeric settings that printed a default inline but carried no `◀ default`
+  marker now have a blue `◀ default` appended next to the stated Default value
+  (348 rows), matching the Selection convention and coexisting with any
+  `◀ performance` marker.
 
 
 ## 1.3.2 - 2026-06-19
@@ -55,15 +55,14 @@ Changed
   v1.3.1 default blue (2E5C8A) was perceptually almost identical to the KEEP
   tier blue (1F4E79) - CIE76 ΔE ~6. Default is now royal blue (2563EB) and
   performance a stronger red (D50000); every marker/tier color pair is now ΔE
-  >= 31. Tier-tag colors unchanged.
+  >= 31.
 
 
 ## 1.3.1 - 2026-06-19
 
 Changed
 - Marker colors standardized: `◀ default` blue and `◀ performance` red (arrow
-  and text), everywhere including the front-matter legend. The four tier tags
-  keep their distinct colors. Superseded by v1.3.2.
+  and text), everywhere including the front-matter legend. Superseded by v1.3.2.
 
 
 ## 1.3.0 - 2026-06-19
@@ -71,26 +70,19 @@ Changed
 Changed
 - Performance recommendations are no longer a separate fourth column. Each
   recommendation now renders inline at the foot of its Options / Values / Range
-  cell as a `◀ performance` marker - same visual treatment as the `◀ default`
-  factory-default marker - followed by its color-coded tier label and one-line
-  rationale.
+  cell as a `◀ performance` marker, followed by its color-coded tier label and
+  one-line rationale.
 - Settings tables narrowed from four columns to three (Setting / Type /
   Options-Values-Range); per-table width corrected 12960 -> 9360 DXA and the
-  document section returned to portrait (US Letter), reversing the v1.2.0
-  landscape switch and removing the right-edge overflow it had introduced.
+  document returned to portrait (US Letter), reversing the v1.2.0 landscape
+  switch and removing the right-edge overflow it had introduced.
 
 Fixed
-- Front matter reconciled to the inline layout: the "Reading the settings
-  tables" legend now describes the `◀ performance` marker instead of a column,
-  and "The Performance column reflects..." became "The Performance markers
-  reflect...".
+- Front matter reconciled to the inline layout.
 
 Notes
-- Counts unchanged and re-verified: 7 form-sets, 186 forms, 1,045 settings,
-  147 settings tables (149 tables total incl. front-matter metadata and
-  Appendix A); tier distribution 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL.
-- Recommendation text, tier assignments, and rationales carried over verbatim
-  from v1.2.3; only their placement changed.
+- Counts unchanged and re-verified at the time: 7 form-sets, 186 forms, 1,045
+  settings, 147 settings tables.
 
 
 ## 1.2.3 - 2026-06-19
