@@ -1,5 +1,42 @@
 # Changelog
 
+## 1.3.2 - 2026-06-19
+
+Changed
+- Marker colors adjusted so the `◀ default` and `◀ performance` markers are
+  clearly distinguishable from the four tier-tag colors. The v1.3.1 default
+  blue (2E5C8A) was perceptually almost identical to the KEEP tier blue
+  (1F4E79) - a CIE76 ΔE of about 6, effectively indistinguishable. Default is
+  now royal blue (2563EB) and performance is now a stronger red (D50000).
+- After the change every marker/tier color pair is separated by ΔE >= 31
+  (minimum is performance-red vs TUNE-orange at ~31; default-blue vs KEEP-blue
+  is now ~56), so no marker can be mistaken for a tier tag.
+
+Notes
+- Only the two marker colors changed. Tier-tag colors are unchanged: CHANGE
+  green (1F7A1F), TUNE orange (C55A11), KEEP blue (1F4E79), NEUTRAL grey
+  (808080). Counts unchanged: 640 blue `◀ default`, 1,045 red `◀ performance`.
+- Document SHA256 updated in README to
+  47e2bf3610f5b9a68ca47a5051a668d73c3589214277ab96e325d2a69cf10ee7.
+
+
+## 1.3.1 - 2026-06-19
+
+Changed
+- Marker colors standardized: the `◀ default` factory-default marker is blue
+  (arrow and text) and the `◀ performance` recommendation marker is red (arrow
+  and text), everywhere they appear including the front-matter legend.
+  Previously the default marker was orange and the performance marker inherited
+  its tier color.
+- The four tier tags keep their distinct colors: only the `◀ performance` arrow
+  and the word "performance" are red; the tag and rationale beside it retain
+  their tier color so the action-worthiness signal is preserved.
+
+Notes
+- Superseded by v1.3.2, which retunes the specific blue/red values for
+  distinguishability from the tier colors. Counts unchanged.
+
+
 ## 1.3.0 - 2026-06-19
 
 Changed
@@ -9,9 +46,6 @@ Changed
   `◀ default` factory-default marker - followed by its color-coded tier label
   and one-line rationale. This points the recommendation at the option it
   concerns and keeps the amplifying note beside it.
-- Tier label color now carries onto the `◀ performance` arrow itself (CHANGE
-  green / TUNE orange / KEEP blue / NEUTRAL grey), so the at-a-glance signal
-  survives the move out of a dedicated column.
 - Settings tables narrowed from four columns to three (Setting / Type /
   Options-Values-Range); per-table width corrected 12960 -> 9360 DXA and the
   document section returned to portrait (US Letter), reversing the v1.2.0
@@ -30,9 +64,7 @@ Notes
   Appendix A); tier distribution 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL.
   1,045 `◀ performance` markers and 640 `◀ default` markers present.
 - Recommendation text, tier assignments, and rationales are carried over
-  verbatim from v1.2.3; only their placement and the arrow color changed.
-- Document SHA256 updated in README to
-  759619ea8a1cf2fda962b4b8fbaadf86efb767356c108746c1ff776754580256.
+  verbatim from v1.2.3; only their placement changed.
 
 
 ## 1.2.3 - 2026-06-19
