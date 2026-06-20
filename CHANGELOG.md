@@ -1,40 +1,51 @@
 # Changelog
 
+## 1.3.3 - 2026-06-19
+
+Fixed
+- Default-marker coverage made consistent. Numeric settings previously printed
+  their default inline (e.g. "Min 0x0 - Max 0xFF - Step 0x1 - Default 0x7F") but
+  carried no `◀ default` marker, while Selection settings did mark their
+  default. A blue `◀ default` marker is now appended next to the stated Default
+  value on 348 Numeric rows, matching the Selection convention. Where the row
+  also has a performance recommendation, `◀ default` sits on the value line and
+  the red `◀ performance` marker follows beneath, so the two coexist.
+
+Notes
+- No defaults were invented. The 58 rows still without a `◀ default` marker have
+  no fixed/known default to mark: 31 Selection rows whose firmware IFR exposes
+  no default, 22 Text + 2 Password free-input fields, 1 Date, 1 Time, and 1
+  runtime-populated Numeric (RAID Array Size). All 348 rows that state a
+  "Default 0xNN" value are now marked; zero such rows remain unmarked.
+- Marker total: 988 `◀ default` (987 in table rows + 1 in the legend) and 1,045
+  `◀ performance`. Settings, table, and tier counts unchanged (1,045 settings;
+  147 settings tables; 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL).
+- Document SHA256 updated in README to
+  6fcdb826d57df31826370518def54ac3c1a7c233083abf2ab357e6417a503363.
+
+
 ## 1.3.2 - 2026-06-19
 
 Changed
 - Marker colors adjusted so the `◀ default` and `◀ performance` markers are
   clearly distinguishable from the four tier-tag colors. The v1.3.1 default
   blue (2E5C8A) was perceptually almost identical to the KEEP tier blue
-  (1F4E79) - a CIE76 ΔE of about 6, effectively indistinguishable. Default is
-  now royal blue (2563EB) and performance is now a stronger red (D50000).
-- After the change every marker/tier color pair is separated by ΔE >= 31
-  (minimum is performance-red vs TUNE-orange at ~31; default-blue vs KEEP-blue
-  is now ~56), so no marker can be mistaken for a tier tag.
+  (1F4E79) - a CIE76 ΔE of about 6. Default is now royal blue (2563EB) and
+  performance is now a stronger red (D50000); every marker/tier color pair is
+  now separated by ΔE >= 31.
 
 Notes
-- Only the two marker colors changed. Tier-tag colors are unchanged: CHANGE
-  green (1F7A1F), TUNE orange (C55A11), KEEP blue (1F4E79), NEUTRAL grey
-  (808080). Counts unchanged: 640 blue `◀ default`, 1,045 red `◀ performance`.
-- Document SHA256 updated in README to
-  47e2bf3610f5b9a68ca47a5051a668d73c3589214277ab96e325d2a69cf10ee7.
+- Only the two marker colors changed. Tier-tag colors unchanged: CHANGE green
+  (1F7A1F), TUNE orange (C55A11), KEEP blue (1F4E79), NEUTRAL grey (808080).
 
 
 ## 1.3.1 - 2026-06-19
 
 Changed
-- Marker colors standardized: the `◀ default` factory-default marker is blue
-  (arrow and text) and the `◀ performance` recommendation marker is red (arrow
-  and text), everywhere they appear including the front-matter legend.
-  Previously the default marker was orange and the performance marker inherited
-  its tier color.
-- The four tier tags keep their distinct colors: only the `◀ performance` arrow
-  and the word "performance" are red; the tag and rationale beside it retain
-  their tier color so the action-worthiness signal is preserved.
-
-Notes
-- Superseded by v1.3.2, which retunes the specific blue/red values for
-  distinguishability from the tier colors. Counts unchanged.
+- Marker colors standardized: `◀ default` blue and `◀ performance` red (arrow
+  and text), everywhere including the front-matter legend. The four tier tags
+  keep their distinct colors. Superseded by v1.3.2, which retunes the specific
+  blue/red values for distinguishability from the tier colors.
 
 
 ## 1.3.0 - 2026-06-19
@@ -42,29 +53,26 @@ Notes
 Changed
 - Performance recommendations are no longer a separate fourth column. Each
   recommendation now renders inline at the foot of its Options / Values / Range
-  cell as a `◀ performance` marker - same visual treatment as the existing
-  `◀ default` factory-default marker - followed by its color-coded tier label
-  and one-line rationale. This points the recommendation at the option it
-  concerns and keeps the amplifying note beside it.
+  cell as a `◀ performance` marker - same visual treatment as the `◀ default`
+  factory-default marker - followed by its color-coded tier label and one-line
+  rationale.
 - Settings tables narrowed from four columns to three (Setting / Type /
   Options-Values-Range); per-table width corrected 12960 -> 9360 DXA and the
   document section returned to portrait (US Letter), reversing the v1.2.0
-  landscape switch. The reclaimed width removes the right-edge overflow the
-  four-column landscape layout had introduced.
+  landscape switch and removing the right-edge overflow it had introduced.
 
 Fixed
 - Front matter reconciled to the inline layout: the "Reading the settings
   tables" legend now describes the `◀ performance` marker instead of a column,
   and "The Performance column reflects..." became "The Performance markers
-  reflect...". No other front-matter wording changed.
+  reflect...".
 
 Notes
 - Counts unchanged and re-verified: 7 form-sets, 186 forms, 1,045 settings,
   147 settings tables (149 tables total incl. front-matter metadata and
   Appendix A); tier distribution 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL.
-  1,045 `◀ performance` markers and 640 `◀ default` markers present.
-- Recommendation text, tier assignments, and rationales are carried over
-  verbatim from v1.2.3; only their placement changed.
+- Recommendation text, tier assignments, and rationales carried over verbatim
+  from v1.2.3; only their placement changed.
 
 
 ## 1.2.3 - 2026-06-19

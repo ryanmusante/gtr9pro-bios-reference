@@ -43,7 +43,10 @@ recommended value for the AMD Strix Halo / Ryzen AI Max+ 395 platform with a
 one-line rationale. As of v1.3.0 the recommendation is rendered inline beneath
 each option list as a red `◀ performance` marker (mirroring the blue `◀ default`
 factory-default marker), rather than in a separate fourth column; the document
-is therefore in portrait. Each marker is followed by a color-coded tier tag -
+is therefore in portrait. Where a setting has both a factory default and a
+performance recommendation, the blue `◀ default` marker sits on the default
+option/value and the red `◀ performance` marker follows on the line beneath, so
+the two coexist. Each performance marker is followed by a color-coded tier tag -
 **CHANGE** (green; change for a gain), **TUNE** (orange; workload-specific /
 expert-only), **KEEP** (blue; default already optimal), and **NEUTRAL** (grey;
 no performance impact; leave default). The marker colors (blue default, red
@@ -70,9 +73,12 @@ low-level CBS, AMD Overclocking, or PMF settings.
   in the exact order the firmware presents them.
 - Settings tables: Setting / Type / Options-Values-Range. Bracketed values are
   raw NVRAM values (usable for SCEWIN/AMISCE scripting). The factory default is
-  marked with a blue `◀ default`. Beneath each option list, a red `◀ performance`
-  marker gives the recommended setting per option, followed by its tier tag (see
-  "Performance recommendations" above).
+  marked with a blue `◀ default` on the default option (for selections) or next
+  to the stated Default value (for numerics). Free-input fields (text, password,
+  date, time) and a few firmware controls that expose no default are
+  unmarked. Beneath each option list, a red `◀ performance` marker gives the
+  recommended setting per option, followed by its tier tag (see "Performance
+  recommendations" above).
 - Defaults shown are compiled Standard Defaults; a unit's live values may differ.
 - Many options are conditionally hidden on screen (suppress-if / grayout-if), so
   this catalog is a superset of what any single unit displays.
@@ -87,5 +93,5 @@ low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-47e2bf3610f5b9a68ca47a5051a668d73c3589214277ab96e325d2a69cf10ee7  GTR9Pro_BIOS_Settings.docx
+6fcdb826d57df31826370518def54ac3c1a7c233083abf2ab357e6417a503363  GTR9Pro_BIOS_Settings.docx
 ```
