@@ -1,5 +1,40 @@
 # Changelog
 
+## 1.3.0 - 2026-06-19
+
+Changed
+- Performance recommendations are no longer a separate fourth column. Each
+  recommendation now renders inline at the foot of its Options / Values / Range
+  cell as a `◀ performance` marker - same visual treatment as the existing
+  `◀ default` factory-default marker - followed by its color-coded tier label
+  and one-line rationale. This points the recommendation at the option it
+  concerns and keeps the amplifying note beside it.
+- Tier label color now carries onto the `◀ performance` arrow itself (CHANGE
+  green / TUNE orange / KEEP blue / NEUTRAL grey), so the at-a-glance signal
+  survives the move out of a dedicated column.
+- Settings tables narrowed from four columns to three (Setting / Type /
+  Options-Values-Range); per-table width corrected 12960 -> 9360 DXA and the
+  document section returned to portrait (US Letter), reversing the v1.2.0
+  landscape switch. The reclaimed width removes the right-edge overflow the
+  four-column landscape layout had introduced.
+
+Fixed
+- Front matter reconciled to the inline layout: the "Reading the settings
+  tables" legend now describes the `◀ performance` marker instead of a column,
+  and "The Performance column reflects..." became "The Performance markers
+  reflect...". No other front-matter wording changed.
+
+Notes
+- Counts unchanged and re-verified: 7 form-sets, 186 forms, 1,045 settings,
+  147 settings tables (149 tables total incl. front-matter metadata and
+  Appendix A); tier distribution 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL.
+  1,045 `◀ performance` markers and 640 `◀ default` markers present.
+- Recommendation text, tier assignments, and rationales are carried over
+  verbatim from v1.2.3; only their placement and the arrow color changed.
+- Document SHA256 updated in README to
+  759619ea8a1cf2fda962b4b8fbaadf86efb767356c108746c1ff776754580256.
+
+
 ## 1.2.3 - 2026-06-19
 
 Fixed

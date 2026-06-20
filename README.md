@@ -36,17 +36,20 @@ Generic UEFI network-stack driver forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) are
 out of scope (not board BIOS settings) and inventoried in Appendix A.
 
 
-## Performance recommendations (v1.2.0)
+## Performance recommendations (v1.2.0+)
 
-Every settings table now carries a fourth **Performance** column: a recommended
-value for the AMD Strix Halo / Ryzen AI Max+ 395 platform with a one-line
-rationale, color-coded by tier - **CHANGE** (change for a gain), **TUNE**
+Every settings table carries a per-option **Performance** recommendation: a
+recommended value for the AMD Strix Halo / Ryzen AI Max+ 395 platform with a
+one-line rationale, color-coded by tier - **CHANGE** (change for a gain), **TUNE**
 (workload-specific / expert-only), **KEEP** (default already optimal), and
-**NEUTRAL** (no performance impact; leave default). The document is now in
-landscape to fit the column. See the front-matter section "How the performance
-recommendations were derived" for the sources and caveats. TUNE entries are
-validated starting points, not guaranteed-stable values - record originals
-before changing low-level CBS, AMD Overclocking, or PMF settings.
+**NEUTRAL** (no performance impact; leave default). As of v1.3.0 the
+recommendation is rendered inline beneath each option list as a `◀ performance`
+marker (mirroring the `◀ default` factory-default marker), rather than in a
+separate fourth column; the document is therefore back in portrait. See the
+front-matter section "How the performance recommendations were derived" for the
+sources and caveats. TUNE entries are validated starting points, not
+guaranteed-stable values - record originals before changing low-level CBS, AMD
+Overclocking, or PMF settings.
 
 ## Methodology
 
@@ -63,10 +66,10 @@ before changing low-level CBS, AMD Overclocking, or PMF settings.
 
 - Each chapter = one firmware form-set; sub-sections = individual Setup pages,
   in the exact order the firmware presents them.
-- Settings tables: Setting / Type / Options-Values-Range / Performance. Bracketed
-  values are raw NVRAM values (usable for SCEWIN/AMISCE scripting). Factory
-  default marked. The Performance column gives a recommended setting per option
-  (see "Performance recommendations" above).
+- Settings tables: Setting / Type / Options-Values-Range. Bracketed values are
+  raw NVRAM values (usable for SCEWIN/AMISCE scripting). The factory default is
+  marked `◀ default`. Beneath each option list, a `◀ performance` marker gives
+  the recommended setting per option (see "Performance recommendations" above).
 - Defaults shown are compiled Standard Defaults; a unit's live values may differ.
 - Many options are conditionally hidden on screen (suppress-if / grayout-if), so
   this catalog is a superset of what any single unit displays.
@@ -81,5 +84,5 @@ before changing low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-b48f80a616dbd45066b5810a7df26ccef75ef17d9f147bdbb1a242911c217872  GTR9Pro_BIOS_Settings.docx
+759619ea8a1cf2fda962b4b8fbaadf86efb767356c108746c1ff776754580256  GTR9Pro_BIOS_Settings.docx
 ```
