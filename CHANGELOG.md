@@ -1,135 +1,127 @@
 # Changelog
 
+## 1.3.6 - 2026-06-21
+
+Fixed
+- Removed 24 duplicate rows that did not represent distinct firmware settings.
+  Earlier passes retained these as faithful artifacts; they are redundant for
+  configuration and are now collapsed, first occurrence kept:
+  - Smart Fan Function (Form 0x2737): Fan1 and Fan2 each listed their curve
+    block (off/start/full-speed temp, start PWM, PWM slope) twice. Collapsed to
+    one block per fan; the four fans now have one control set each (-10).
+  - Trusted Computing (Form 0x271A): duplicate Security Device Support and
+    Pending operation rows; the TPM-group copies are kept (-2).
+  - Display Configurations (Form 0x10): repeated Adjust DP Caps; DP0's row is
+    kept as the reference (-4).
+  - View Physical Disk Properties (RAID Form 0x222): an 8-row block repeated
+    verbatim (-8).
+- Reconciled all settings totals against the document body:
+  - Total configurable settings: 1,045 -> 1,021.
+  - Aptio Setup form-set: 184 -> 172; AMD PBS: 206 -> 202; RAIDXpert2: 37 -> 29.
+  - Tier distribution: 4 CHANGE, 386 TUNE, 42 KEEP, 589 no-marker. Only TUNE
+    (396 -> 386) and no-marker (603 -> 589) changed; the removed rows were 10
+    TUNE and 14 unmarked.
+  - `◀ performance` markers: 442 -> 432.
+
+Notes
+- Rows that share a label but differ in content (growing Pstate/GOP/CacheTagSize
+  one-of lists, per-port controls) are distinct settings and were retained.
+- Document SHA256 updated in README to
+  3e40738731e360c294f5fa433bdb564b924f0ed7e66958a673e79245703fac94.
+
+
 ## 1.3.5 - 2026-06-19
 
 Changed
 - Removed the `◀ performance` marker from every setting with no performance
-  dimension (the 603 rows previously tagged NEUTRAL). NEUTRAL meant "no
-  performance impact," so the marker on those rows was contradictory; they now
-  show only their options and the blue `◀ default`. Performance markers remain
-  on the 442 rows with an actual recommendation: 396 TUNE, 42 KEEP, 4 CHANGE.
-- Front-matter legend reconciled: it no longer lists NEUTRAL as a tag and
-  instead states that settings with no performance dimension carry no
-  `◀ performance` marker. CHANGE / TUNE / KEEP descriptions are unchanged.
+  dimension (the 603 rows previously tagged NEUTRAL); they now show only their
+  options and the blue `◀ default`. Markers remain on the 442 rows with an
+  actual recommendation: 396 TUNE, 42 KEEP, 4 CHANGE.
+- Front-matter legend reconciled: no longer lists NEUTRAL as a tag.
 
 Notes
 - `◀ performance` total: 1,045 -> 442. `◀ default` unchanged at 1,006. Settings
-  count unchanged (1,045 data rows; 603 now carry no performance marker, 442 do).
-- No recommendation text was altered; the NEUTRAL paragraphs were removed whole.
-  The document shortened from 138 to 113 pages as a result.
-- Document SHA256 updated in README to
-  bf102e7c4a85d18b3c9523302b47c32f1648d857ddda5c538152093cd302297c.
+  count unchanged (1,045 rows; 603 carry no performance marker, 442 do).
+- Document shortened from 138 to 113 pages.
 
 
 ## 1.3.4 - 2026-06-19
 
 Fixed
 - Extended default-marker coverage to 18 Selection rows whose firmware default
-  the original IFR extraction did not capture: 14 with high-confidence AMI Aptio
-  V defaults (Network Stack, IPv4/IPv6 PXE + HTTP, Network Stack Driver Support,
-  Debug Port Table x2, Redirection Support, Factory Key Provision, Fast Boot ->
-  Disabled; NVMe / UFS / PS2 Devices Support -> Enabled) plus 4 with clear
-  platform defaults (Bootup NumLock -> On, VGA Support -> Auto, USB Support ->
-  Full Initial, Boot mode select -> UEFI).
+  the original IFR extraction did not capture (14 high-confidence AMI Aptio V
+  defaults plus 4 clear platform defaults).
 
 Notes
-- No defaults were invented. 8 genuinely platform-specific rows (five PCR Banks,
-  Secure Boot, Runtime-Variable password protection, XHCI Hand-off) and 2
-  borderline rows (Secure Boot Mode, SATA Support) were left unmarked, as the
-  source ROM/IFR was unavailable to recover them authoritatively.
+- No defaults were invented. 8 platform-specific rows and 2 borderline rows were
+  left unmarked, as the source ROM/IFR was unavailable to recover them.
 
 
 ## 1.3.3 - 2026-06-19
 
 Fixed
-- Numeric settings that printed a default inline but carried no `◀ default`
-  marker now have a blue `◀ default` appended next to the stated Default value
-  (348 rows), matching the Selection convention and coexisting with any
-  `◀ performance` marker.
+- Numeric settings that printed a default inline but carried no marker now have a
+  blue `◀ default` appended next to the stated Default value (348 rows).
 
 
 ## 1.3.2 - 2026-06-19
 
 Changed
-- Marker colors adjusted for distinguishability from the tier-tag colors. The
-  v1.3.1 default blue (2E5C8A) was perceptually almost identical to the KEEP
-  tier blue (1F4E79) - CIE76 ΔE ~6. Default is now royal blue (2563EB) and
-  performance a stronger red (D50000); every marker/tier color pair is now ΔE
-  >= 31.
+- Marker colors adjusted for distinguishability from the tier-tag colors.
+  Default is now royal blue (2563EB) and performance a stronger red (D50000);
+  every marker/tier color pair is now CIE76 ΔE >= 31.
 
 
 ## 1.3.1 - 2026-06-19
 
 Changed
-- Marker colors standardized: `◀ default` blue and `◀ performance` red (arrow
-  and text), everywhere including the front-matter legend. Superseded by v1.3.2.
+- Marker colors standardized: `◀ default` blue and `◀ performance` red,
+  everywhere including the front-matter legend. Superseded by v1.3.2.
 
 
 ## 1.3.0 - 2026-06-19
 
 Changed
-- Performance recommendations are no longer a separate fourth column. Each
-  recommendation now renders inline at the foot of its Options / Values / Range
-  cell as a `◀ performance` marker, followed by its color-coded tier label and
-  one-line rationale.
-- Settings tables narrowed from four columns to three (Setting / Type /
-  Options-Values-Range); per-table width corrected 12960 -> 9360 DXA and the
-  document returned to portrait (US Letter), reversing the v1.2.0 landscape
-  switch and removing the right-edge overflow it had introduced.
+- Performance recommendations are no longer a separate fourth column. Each now
+  renders inline at the foot of its Options / Values / Range cell as a
+  `◀ performance` marker, followed by its tier label and one-line rationale.
+- Settings tables narrowed from four columns to three; per-table width corrected
+  12960 -> 9360 DXA and the document returned to portrait (US Letter).
 
 Fixed
 - Front matter reconciled to the inline layout.
 
 Notes
-- Counts unchanged and re-verified at the time: 7 form-sets, 186 forms, 1,045
-  settings, 147 settings tables.
+- Counts unchanged: 7 form-sets, 186 forms, 1,045 settings, 147 settings tables.
 
 
 ## 1.2.3 - 2026-06-19
 
 Fixed
-- Footer page-number fields rendered blank ("Page  of "). The PAGE and NUMPAGES
-  fields were emitted with a begin/separate/end sequence but no result run and
-  no dirty flag, so renderers showed nothing until a manual Update Field. Added
-  a cached result run to each and marked them dirty; the footer now reads
-  "Page N of M" on open without user action.
-- Typography: normalized the clause separator in the Performance-column notes
-  from a spaced ASCII hyphen to an em-dash (683 notes), matching the em-dash
-  already used throughout the front matter. Compound terms (e.g. Serial/debug,
-  Network-boot, all-core) and verbatim firmware strings are unchanged. No
-  content, count, or tier change.
+- Footer page-number fields rendered blank ("Page  of "). Added a cached result
+  run to the PAGE and NUMPAGES fields and marked them dirty; the footer now
+  reads "Page N of M" on open.
+- Typography: normalized the clause separator in the performance notes from a
+  spaced ASCII hyphen to an em-dash (683 notes). No content or count change.
 
 Removed
 - Vestigial empty comments part (word/comments.xml) plus its relationship and
-  content-type registration. The part held no comments and referenced nothing;
-  dropping it yields a cleaner package with no functional change.
+  content-type registration.
 
 Notes
-- Counts unchanged and re-verified: 7 form-sets, 186 forms, 1,045 settings,
-  149 tables; tier distribution 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL.
-- Form presentation order remains firmware depth-first (apparent form-ID
-  descents are parent/child boundaries, not errors).
-- Document SHA256 updated in README to
-  b48f80a616dbd45066b5810a7df26ccef75ef17d9f147bdbb1a242911c217872.
+- Counts unchanged: 7 form-sets, 186 forms, 1,045 settings, 149 tables; tier
+  distribution 4 CHANGE / 396 TUNE / 42 KEEP / 603 NEUTRAL.
 
 
 ## 1.2.2 - 2026-06-17
 
 Fixed
-- Typography: corrected two Performance-column notes where a quoted term opened
-  with a right single quote instead of a left one (&#x2019;Custom&#x2019; ->
-  &#x2018;Custom&#x2019; on AMD CBS OC Mode; the same on the PMF System
-  Configuration power-profile note). No content or count change.
+- Typography: corrected two performance notes where a quoted term opened with a
+  right single quote instead of a left one. No content or count change.
 
 Notes
-- Second full review pass. Verified with no further changes required: all 149
-  tables well-formed; form presentation order matches firmware depth-first tree
-  order (apparent form-ID descents are parent/child boundaries, not errors);
-  Performance-tier assignments are internally consistent (no setting receives
-  conflicting advice across its occurrences); duplicate-looking rows (Trusted
-  Computing TPM/TCM blocks, RAID conditional form variants, runtime-populated
-  one-of lists) are faithful firmware artifacts and were retained intentionally.
-- Document SHA256 updated in README to 3502a9272f4b5908aeabc89f5f8591b8ff0aae61768761b153d8f9e9b5ba4c97.
+- Second review pass; all 149 tables well-formed and tier assignments
+  internally consistent.
 
 
 ## 1.2.1 - 2026-06-17
@@ -137,60 +129,41 @@ Notes
 Fixed
 - Collapsed a 32-row runtime block in the Aptio USB Configuration form (Form
   0x2750): the per-device USB mass-storage emulation dropdown was emitted as 32
-  identical `N/A` rows. These are a single runtime-repeated control, not 32
-  distinct settings; they are now represented by one summary row, matching the
-  device-enumeration collapse already applied elsewhere in v1.1.0.
-- Reconciled all settings totals against the document body. The 32 duplicate
-  rows had inflated the catalog and the cover/overview counts had drifted out of
-  sync with the per-tier breakdown. Corrected figures:
+  identical `N/A` rows. Now represented by one summary row.
+- Reconciled all settings totals against the document body:
   - Total configurable settings: 1,074 -> 1,045.
   - Aptio Setup form-set: 213 -> 184 settings.
-  - Tier distribution now sums to 1,045 (4 CHANGE, 396 TUNE, 42 KEEP, 603
-    NEUTRAL); only the NEUTRAL count changed (634 -> 603), since the collapsed
-    rows were all NEUTRAL.
-- Form count (186), settings-table count, and all per-tier non-NEUTRAL totals
-  were already correct and are unchanged.
+  - Tier distribution sums to 1,045 (4 CHANGE, 396 TUNE, 42 KEEP, 603 NEUTRAL);
+    only NEUTRAL changed (634 -> 603).
 
 Notes
-- No setting was removed from the catalog's coverage: the collapsed rows
-  described one control, and its full option list (Auto / Floppy / Forced FDD /
-  Hard Disk / CD-ROM) is preserved in the summary row.
-- Document SHA256 updated in README to a88f28411f024ceced60fd17971805d53c24eeec41309816f058478e58a28529.
+- No setting lost coverage: the collapsed rows described one control, and its
+  full option list is preserved in the summary row.
 
 
 ## 1.2.0 - 2026-06-15
 
 Added
-- Performance column on every settings table (148 tables, 1,074 options). Each
-  entry gives a recommended setting for the AMD Strix Halo / Ryzen AI Max+ 395
-  platform plus a one-line rationale, color-coded by tier:
+- Performance column on every settings table (148 tables, 1,074 options),
+  color-coded by tier:
   - CHANGE (green): change away from default for a clear gain.
   - TUNE (orange): performance-relevant but workload-specific or expert-only.
   - KEEP (blue): the default already favors performance; leave it.
-  - NEUTRAL (grey): no performance impact (security, connectivity, debug, or
-    factory-trained values); leave default.
+  - NEUTRAL (grey): no performance impact; leave default.
 - "How the performance recommendations were derived" section and a column
-  legend in the front matter, citing the sources used (AMD Variable Graphics
-  Memory guidance, community Strix Halo LLM/BIOS setup guides, AMD/1usmus CBS
-  high-performance recommendations, Tom's Hardware PBO + Curve Optimizer
-  references, and Beelink GTR9 Pro Performance-mode reports).
+  legend in the front matter, citing the sources used.
 
 Changed
-- Settings-table layout widened to four columns; document section switched to
-  landscape (US Letter) so the Performance column fits without crowding the
-  existing Setting / Type / Options columns.
+- Settings-table layout widened to four columns; document switched to landscape
+  (US Letter) so the Performance column fits.
 
 Notes
 - Tier distribution across the 1,074 options: 4 CHANGE, 396 TUNE, 42 KEEP,
-  634 NEUTRAL. The large NEUTRAL share reflects that most BIOS options here are
-  security, connectivity, debug, or factory-trained memory/voltage controls with
-  no performance dimension - the honest entry is "leave default," not an
-  invented value.
+  634 NEUTRAL.
 - TUNE entries are validated starting points, not guaranteed-stable values.
-  Silicon, cooling, and firmware revision vary; record originals before changing
-  low-level CBS, AMD Overclocking, or PMF values. The soldered LPDDR5X memory is
-  already trained to spec, so memory sub-timings and rail voltages are marked
-  accordingly.
+  Record originals before changing low-level CBS, AMD Overclocking, or PMF
+  values.
+
 
 ## 1.1.0 - 2026-06-15
 
@@ -202,18 +175,20 @@ Added
 - Scope and coverage section in the overview.
 
 Fixed
-- RAID module labels previously rendered as `<invalid offset>` (stock extractor
-  bound only the first of multiple en-US string packages) now fully resolved.
-- Corrected RAID form titles mis-resolved against the File Explorer string package.
+- RAID module labels previously rendered as `<invalid offset>` now fully
+  resolved.
+- Corrected RAID form titles mis-resolved against the File Explorer string
+  package.
 
 Removed
 - Internal scratch form (FormId 0x9999) holding 149 unlabeled working variables.
-- Vestigial "File Explorer" string fragments and "create a new file" placeholders.
+- Vestigial "File Explorer" string fragments and placeholders.
 - Empty navigation-only forms; duplicate info-field labels.
 - 32-slot runtime device-enumeration dropdown collapsed to a one-line summary.
 
 Changed
 - Totals: 5 -> 7 form-sets, 167 -> 186 forms, 1,134 -> 1,074 cleaned settings.
+
 
 ## 1.0.0 - 2026-06-15
 

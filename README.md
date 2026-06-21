@@ -20,17 +20,17 @@ Beelink GTR9 Pro UEFI firmware, decoded directly from the firmware image.
 
 ## Coverage
 
-7 BIOS-owned Setup form-sets, 186 forms, 1,045 configurable settings.
+7 BIOS-owned Setup form-sets, 186 forms, 1,021 configurable settings.
 
 | Chapter | Form-set | Settings |
 | --- | --- | --- |
-| Aptio Setup (Main tree) | Setup | 184 |
+| Aptio Setup (Main tree) | Setup | 172 |
 | AMD CBS | CbsSetupDxe | 318 |
-| AMD PBS | AmdPbsSetupDxe | 206 |
+| AMD PBS | AmdPbsSetupDxe | 202 |
 | AMD Overclocking | AodDxe | 153 |
 | AMD PMF | AmdCpmPmfBoardDxe | 139 |
 | DASH / ASF | DashManagementDxe | 8 |
-| RAIDXpert2 | (RAID formset) | 37 |
+| RAIDXpert2 | (RAID formset) | 29 |
 
 Generic UEFI network-stack driver forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) are
 out of scope (not board BIOS settings) and inventoried in Appendix A.
@@ -97,5 +97,5 @@ originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-bf102e7c4a85d18b3c9523302b47c32f1648d857ddda5c538152093cd302297c  GTR9Pro_BIOS_Settings.docx
+3e40738731e360c294f5fa433bdb564b924f0ed7e66958a673e79245703fac94  GTR9Pro_BIOS_Settings.docx
 ```
