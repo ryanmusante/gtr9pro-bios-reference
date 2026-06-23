@@ -1,101 +1,97 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-Comprehensive catalog of every BIOS Setup configuration option exposed by the
-Beelink GTR9 Pro UEFI firmware, decoded directly from the firmware image.
+![version](https://img.shields.io/badge/version-1.3.7-1793d1?style=flat-square)
+![platform](https://img.shields.io/badge/platform-AMD%20Strix%20Halo-ed1c24?style=flat-square)
+![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
+![settings](https://img.shields.io/badge/settings-1045-2563eb?style=flat-square)
+
+Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
+UEFI firmware, decoded directly from the firmware image.
 
 ## Contents
 
 | File | Purpose |
 | --- | --- |
-| `GTR9Pro_BIOS_Settings.docx` | Editable Word document (the deliverable) |
+| `GTR9Pro_BIOS_Settings.docx` | The reference document (editable Word) |
 | `README.md` | This file |
 | `CHANGELOG.md` | Version history |
 
 ## Source
 
-- Firmware image: `GTRPR05.rom` (33,554,432 bytes / 32 MB)
-- Flash package: `GTRPR05_WinFlash` (AMI AFUWIN / AfuEfi)
-- BIOS vendor: American Megatrends International (AMI Aptio V)
-- SoC platform: AMD Strix Halo (Ryzen AI Max series APU)
+| | |
+| --- | --- |
+| Firmware image | `GTRPR05.rom` (33,554,432 bytes / 32 MB) |
+| Flash package | `GTRPR05_WinFlash` (AMI AFUWIN / AfuEfi) |
+| BIOS vendor | American Megatrends International (AMI Aptio V) |
+| SoC platform | AMD Strix Halo (Ryzen AI Max series APU) |
 
 ## Coverage
 
-7 BIOS-owned Setup form-sets, 186 forms, 1,021 configurable settings.
+7 BIOS-owned Setup form-sets, 186 forms, 1,045 configurable settings.
 
 | Chapter | Form-set | Settings |
 | --- | --- | --- |
-| Aptio Setup (Main tree) | Setup | 172 |
+| Aptio Setup (Main tree) | Setup | 184 |
 | AMD CBS | CbsSetupDxe | 318 |
-| AMD PBS | AmdPbsSetupDxe | 202 |
+| AMD PBS | AmdPbsSetupDxe | 206 |
 | AMD Overclocking | AodDxe | 153 |
 | AMD PMF | AmdCpmPmfBoardDxe | 139 |
 | DASH / ASF | DashManagementDxe | 8 |
-| RAIDXpert2 | (RAID formset) | 29 |
+| RAIDXpert2 | (RAID formset) | 37 |
 
-Generic UEFI network-stack driver forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) are
-out of scope (not board BIOS settings) and inventoried in Appendix A.
+Generic UEFI network-stack driver forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) are out of
+scope and inventoried in Appendix A.
 
+## Performance recommendations
 
-## Performance recommendations (v1.2.0+)
+Settings with a real performance dimension carry a red `◀ performance` marker
+beneath the option list, with a recommended value for the Ryzen AI Max+ 395
+platform and a one-line rationale. It mirrors the blue `◀ default` factory
+marker; where both apply, `◀ default` sits on the default value and
+`◀ performance` follows on the line beneath.
 
-Settings with a genuine performance dimension carry a **Performance**
-recommendation: a recommended value for the AMD Strix Halo / Ryzen AI Max+ 395
-platform with a one-line rationale. As of v1.3.0 the recommendation is rendered
-inline beneath the option list as a red `◀ performance` marker (mirroring the
-blue `◀ default` factory-default marker), rather than in a separate fourth
-column; the document is therefore in portrait. Where a setting has both a
-factory default and a performance recommendation, the blue `◀ default` marker
-sits on the default option/value and the red `◀ performance` marker follows on
-the line beneath, so the two coexist. Each performance marker is followed by a
-color-coded tier tag - **CHANGE** (green; change for a gain), **TUNE** (orange;
-workload-specific / expert-only), and **KEEP** (blue; default already optimal).
-As of v1.3.5, settings with no performance dimension (security, connectivity,
-debug, or factory-trained values - previously tagged NEUTRAL) carry no
-`◀ performance` marker at all; only their options and `◀ default` are shown.
-The marker colors (blue default, red performance) are deliberately chosen to be
-distinct from the tier-tag colors. See the front-matter section "How the
-performance recommendations were derived" for the sources and caveats. TUNE
-entries are validated starting points, not guaranteed-stable values - record
-originals before changing low-level CBS, AMD Overclocking, or PMF settings.
+Each performance marker carries a tier tag:
+
+| Tag | Meaning |
+| --- | --- |
+| **CHANGE** (green) | Change away from default for a clear gain |
+| **TUNE** (orange) | Performance-relevant but workload-specific / expert-only |
+| **KEEP** (blue) | Default already favors performance; leave it |
+
+Settings with no performance dimension (security, connectivity, debug, or
+factory-trained values) carry no `◀ performance` marker. TUNE entries are
+validated starting points, not guaranteed-stable values — record originals
+before changing low-level CBS, AMD Overclocking, or PMF settings.
 
 ## Methodology
 
 1. ROM unpacked with UEFIExtract (UEFITool, built from source).
-2. IFR decoded from each Setup-bearing PE32 via Universal-IFR-Extractor (built from source).
-3. HII string packages decoded with a custom SIBT block parser to resolve
-   labels the stock extractor left unresolved (the RAID module ships multiple
-   en-US string packages; only the first is auto-bound). String resolution
-   verified byte-for-byte against the extractor's known-good Setup output.
+2. IFR decoded per Setup-bearing PE32 via Universal-IFR-Extractor (built from source).
+3. HII string packages decoded with a custom SIBT block parser to resolve labels
+   the stock extractor left unresolved, verified against its known-good output.
 4. Internal scratch forms, runtime device-enumeration lists, and unlabeled
    working variables filtered out for readability.
 
 ## Reading the document
 
-- Each chapter = one firmware form-set; sub-sections = individual Setup pages,
-  in the exact order the firmware presents them.
-- Settings tables: Setting / Type / Options-Values-Range. Bracketed values are
-  raw NVRAM values (usable for SCEWIN/AMISCE scripting). The factory default is
-  marked with a blue `◀ default` on the default option (for selections) or next
-  to the stated Default value (for numerics). Rows with no fixed default - free
-  input fields (text/password/date/time), runtime-populated lists, and a few
-  firmware controls whose default the IFR does not expose - are left unmarked
-  rather than guessed. Settings with a performance dimension also show a red
-  `◀ performance` marker beneath the option list, followed by its tier tag;
-  settings with no performance dimension show no such marker (see "Performance
-  recommendations" above).
+- Each chapter is one firmware form-set; sub-sections are individual Setup pages,
+  in firmware presentation order.
+- Settings tables are Setting / Type / Options-Values-Range. Bracketed values are
+  raw NVRAM values (usable for SCEWIN/AMISCE scripting). The factory default
+  carries a blue `◀ default`; rows with no fixed default (free input, runtime
+  lists, IFR-unexposed defaults) are left unmarked rather than guessed.
 - Defaults shown are compiled Standard Defaults; a unit's live values may differ.
-- Many options are conditionally hidden on screen (suppress-if / grayout-if), so
-  this catalog is a superset of what any single unit displays.
+- Many options are conditionally hidden (suppress-if / grayout-if), so this
+  catalog is a superset of what any single unit displays.
 
 ## Notes
 
-- The Table of Contents is a live Word field: open in Word and Update Field
-  (or right-click -> Update Field) to populate it. It may show blank until
-  updated — expected behavior for that field type.
-- BIOS Version / Build Date are runtime-populated and shown as placeholders.
+- The Table of Contents is a live Word field — open in Word and Update Field to
+  populate it. It may show blank until updated.
+- BIOS Version / Build Date are runtime-populated placeholders.
 
 ## Integrity (SHA256)
 
 ```
-3e40738731e360c294f5fa433bdb564b924f0ed7e66958a673e79245703fac94  GTR9Pro_BIOS_Settings.docx
+c92fde7027cbad513ef943fbe3b26f3bd3e3d290b5bcad9fb7247070084d8133  GTR9Pro_BIOS_Settings.docx
 ```
