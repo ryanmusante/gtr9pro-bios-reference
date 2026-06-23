@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![version](https://img.shields.io/badge/version-1.3.7-1793d1?style=flat-square)
+![version](https://img.shields.io/badge/version-1.3.9-1793d1?style=flat-square)
 ![platform](https://img.shields.io/badge/platform-AMD%20Strix%20Halo-ed1c24?style=flat-square)
 ![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
 ![settings](https://img.shields.io/badge/settings-1045-2563eb?style=flat-square)
@@ -12,7 +12,7 @@ UEFI firmware, decoded directly from the firmware image.
 
 | File | Purpose |
 | --- | --- |
-| `GTR9Pro_BIOS_Settings.docx` | The reference document (editable Word) |
+| `GTR9Pro_BIOS_Settings.pdf` | The reference document |
 | `README.md` | This file |
 | `CHANGELOG.md` | Version history |
 
@@ -48,7 +48,9 @@ Settings with a real performance dimension carry a red `◀ performance` marker
 beneath the option list, with a recommended value for the Ryzen AI Max+ 395
 platform and a one-line rationale. It mirrors the blue `◀ default` factory
 marker; where both apply, `◀ default` sits on the default value and
-`◀ performance` follows on the line beneath.
+`◀ performance` follows on the line beneath. Each marker line is shaded in its
+marker color — blue behind `◀ default`, red behind `◀ performance` — for
+at-a-glance scanning.
 
 Each performance marker carries a tier tag:
 
@@ -86,12 +88,10 @@ before changing low-level CBS, AMD Overclocking, or PMF settings.
 
 ## Notes
 
-- The Table of Contents is a live Word field — open in Word and Update Field to
-  populate it. It may show blank until updated.
 - BIOS Version / Build Date are runtime-populated placeholders.
 
 ## Integrity (SHA256)
 
 ```
-c92fde7027cbad513ef943fbe3b26f3bd3e3d290b5bcad9fb7247070084d8133  GTR9Pro_BIOS_Settings.docx
+41abf78997ffea37e89a905ef5efbd458e13a2bb716cb1c8dfb7cb80a3d86da9  GTR9Pro_BIOS_Settings.pdf
 ```
