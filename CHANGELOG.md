@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.11 - 2026-06-23
+
+- Correct performance-marker total of record: the shipped PDF carries 446
+  performance markers (5 CHANGE / 398 TUNE / 43 KEEP), not the 442
+  (4 / 396 / 42) carried forward in 1.3.5, 1.3.7, and 1.3.9. Body and PDF
+  were already correct; only the prior changelog tallies were off.
+- Default markers reconcile to 1,004 (1,450 total markers minus 446
+  performance), superseding the 1,005 figure in 1.3.9.
+- PDF unchanged; SHA256 41abf78997ffea37e89a905ef5efbd458e13a2bb716cb1c8dfb7cb80a3d86da9.
+
 ## 1.3.10 - 2026-06-23
 
 - Format changelog as Markdown lists: de-indent tab-led bullets to

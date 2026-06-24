@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![version](https://img.shields.io/badge/version-1.3.10-1793d1?style=flat-square)
+![version](https://img.shields.io/badge/version-1.3.11-1793d1?style=flat-square)
 ![platform](https://img.shields.io/badge/platform-AMD%20Strix%20Halo-ed1c24?style=flat-square)
 ![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
 ![settings](https://img.shields.io/badge/settings-1045-2563eb?style=flat-square)
