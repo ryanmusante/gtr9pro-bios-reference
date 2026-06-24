@@ -1,5 +1,35 @@
 # Changelog
 
+## 1.4.0 - 2026-06-23
+
+- Remove 35 verbatim-duplicate option rows the IFR extraction emitted more
+  than once within a single form (identical setting name, type, and values).
+  One canonical row kept per duplicate. Removals: Smart Fan Function (0x2737)
+  21, View Associated Physical Disks (0x222) 8, Display Configurations (0x10)
+  4, Trusted Computing (0x271A) 2.
+- Settings total: the shipped firmware tables held 1,053 option rows; removing
+  the 35 duplicates leaves 1,018. The 1,045 quoted in prose since 1.2.1 had
+  already deducted the 8 duplicate View Associated Physical Disks rows from the
+  count without removing them from the tables; 1,045 minus the remaining 27
+  duplicates is the same 1,018.
+- Only byte-identical repeats removed. Distinct-hardware rows that share an
+  option pattern are retained: PCI-E Port Device0-Device7 and their per-device
+  ASPM/Hotplug controls, the four CPU Smart Fan controllers, the eight
+  PPC Adjustment P-state-count variants, and the three per-device Trusted
+  Computing form variants (0x2719 / 0x271A / 0x271B).
+- Per-chapter settings: Aptio Setup 184 -> 161 (Smart Fan 21 + Trusted
+  Computing 2), AMD PBS 206 -> 202 (Display Configurations 4); RAIDXpert2
+  stays 37 in prose (tables 45 -> 37 once the 8 VAP duplicates are dropped);
+  AMD CBS, AOD, PMF, DASH/ASF unchanged.
+- Marker totals follow the removed rows: 27 default and 21 performance (all
+  TUNE) markers dropped.
+- PDF regenerated from the shipped document's tagged table structure (markers,
+  tier tags, and per-line shading reproduced; 113 -> 106 pages from the smaller
+  row set; Page N of M fields repopulated).
+- README settings badge and coverage table updated to 1,018; de-duplication
+  section added.
+- SHA256 -> a703615b9273aea31d71d6ecc8dd40a47284e1d2646d249e6c6e2494086c46b1.
+
 ## 1.3.11 - 2026-06-23
 
 - Correct performance-marker total of record: the shipped PDF carries 446
