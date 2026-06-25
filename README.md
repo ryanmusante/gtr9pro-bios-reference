@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![version](https://img.shields.io/badge/doc-1.5.0-1793d1?style=flat-square)
+![version](https://img.shields.io/badge/doc-1.5.2-1793d1?style=flat-square)
 ![board](https://img.shields.io/badge/GTR9%20Pro-v2.2-6f42c1?style=flat-square)
 ![bios](https://img.shields.io/badge/BIOS-GTRPRPI1001C%20(latest)-ed1c24?style=flat-square)
 ![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
@@ -9,6 +9,15 @@
 **GTR9 Pro v2.2 — latest BIOS v (GTRPRPI1001C).** Complete catalog of every BIOS
 Setup option exposed by the Beelink GTR9 Pro UEFI firmware, decoded directly
 from the firmware image.
+
+## Which revision do you have?
+
+You need to know which GTR9 Pro revision is yours, the original GTR9 Pro v1.0
+(Intel E610-XT2 NIC, BIOS vP### series) or the latest GTR9 Pro v2.2 (Realtek
+RT8127 NIC, BIOS vPR## series). Check your GTR9 Pro's NIC chipset or its current
+BIOS series version to differentiate them. This catalog documents the **v2.2**
+(BIOS `GTRPR##` / `GTRPRPI####` series). At the time of this writing:
+https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS
 
 ## Contents
 
@@ -62,7 +71,11 @@ modules are byte-identical between the two images and structurally consistent
 with the `GTRPR05` decode that produced this catalog, **the setting names,
 types, value ranges, stored NVRAM values, and defaults documented here apply
 unchanged to the latest `GTRPRPI1001C` BIOS (and to `GTRPR07`).** No
-setting-level edits were required; this revision updates provenance only.
+setting-level edits were required; the 1.5.0 revision updated provenance only.
+The 1.5.1 revision additionally corrected default/performance marker accuracy
+in the Options / Values / Range column (mis-pasted performance rationales on
+four settings, and ten missing factory-default markers) — see the changelog;
+no settings, types, values, or ranges changed.
 
 ## Coverage
 
@@ -172,5 +185,5 @@ before changing low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-229fa7666721d4965637ef50f98031e18a1f7a76f04d85e90bf5e84996e97f22  GTR9Pro_BIOS_Settings.pdf
+83bf8f716f81db007b1f34adf1fdd5441b697ad8f207a4357e74cb0c8d0523e5  GTR9Pro_BIOS_Settings.pdf
 ```

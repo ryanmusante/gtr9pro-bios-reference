@@ -1,5 +1,51 @@
 # Changelog
 
+## 1.5.2 - 2026-06-24
+
+- README: added a "Which revision do you have?" section to help readers confirm
+  this catalog matches their unit. The original GTR9 Pro v1.0 (Intel E610-XT2
+  NIC, BIOS vP### series) and the latest GTR9 Pro v2.2 (Realtek RT8127 NIC,
+  BIOS vPR## series) are distinguished by NIC chipset or current BIOS series;
+  this catalog documents the v2.2. Includes the Beelink BIOS download link.
+- Documentation-only change. The PDF is unchanged from 1.5.1 (SHA256
+  83bf8f716f81db007b1f34adf1fdd5441b697ad8f207a4357e74cb0c8d0523e5), so its
+  settings, markers, header, and cover are identical.
+
+
+## 1.5.1 - 2026-06-24
+
+Accuracy pass on the default/performance markers in the Options / Values /
+Range column. No settings, types, values, or ranges changed; only marker
+correctness.
+
+- Fixed performance rationales that had been copy-pasted from **NVMe Support**
+  onto four unrelated settings. Each now describes its own setting:
+  - **SATA Support** — boot-time SATA enumeration scope (Last Boot SATA Devices
+    Only vs All SATA Devices), not a runtime speed control.
+  - **UFS Support** — UFS storage controller enable; no runtime perf impact.
+  - **VGA Support** — video BIOS / GOP init policy (Auto vs EFI Driver), not a
+    storage/performance setting.
+  - **PS2 Devices Support** — legacy PS/2 keyboard/mouse init; no perf effect.
+  The **NVMe Support** rationale (the correct original) is unchanged.
+- Added the blue `◀ default` marker to ten settings whose firmware Standard
+  default (IFR DefaultId 0x0) is exposed but was previously left unmarked,
+  verified against the decoded IFR (Universal-IFR-Extractor):
+  SHA-1 PCR Bank (Disabled), SHA256 PCR Bank (Enabled [0x2]), SHA384/SHA512/
+  SM3_256 PCR Bank (Disabled), XHCI Hand-off (Enabled), Secure Boot (Disabled),
+  Secure Boot Mode (Custom), Password protection of Runtime Variables (Enabled),
+  and SATA Support (Last Boot SATA Devices Only).
+- Marker tallies after this pass: 988 default (was 978; +10) and 421
+  performance (unchanged: 4 CHANGE / 375 TUNE / 42 KEEP). Settings that are
+  legitimately runtime-populated (System Language, Select CacheTagSize) remain
+  intentionally unmarked.
+- Verified the previously flagged "wrong default" candidates were false
+  positives in the audit tooling, not document errors — IPv4 PXE Support
+  (Disabled), Factory Key Provision (Disabled), Precision Boost Overdrive
+  (Auto [0xFF]), PWM SLOPE SETTING (1 PWM [0x3]), and VGA Support's default
+  (Auto) were already correct and were left unchanged.
+- SHA256 -> 83bf8f716f81db007b1f34adf1fdd5441b697ad8f207a4357e74cb0c8d0523e5.
+
+
 ## 1.5.0 - 2026-06-24
 
 - Set the document of record to the **GTR9 Pro v2.2 latest BIOS, `GTRPRPI1001C`**.
