@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.6.3 - 2026-06-25
+
+- Added /ToUnicode CMaps to all three fonts so markers (■), bullets (•), and
+  middot separators copy and extract as proper Unicode. Page rendering is
+  pixel-identical to 1.6.2 across all 106 pages; no settings, types, values,
+  ranges, or markers changed.
+- SHA256 -> 31d6822cd9fe023b386acd9eca8bfc71ad61742bc1d74d4c03c1f9d51f1c0804.
+
+## 1.6.2 - 2026-06-25
+
+- Removed a stray trailing period from the "View Array Properties" form heading
+  (RAIDXpert2, Form 0x240). No settings, types, values, ranges, or markers
+  changed; page layout otherwise byte-identical to 1.6.1.
+- SHA256 -> 4344460c850b4d93e97f76e4face67954d7f6f397299d4a57e4e17dc84ae6fbe.
+
 ## 1.6.1 - 2026-06-25
 
 - Embedded all fonts (Helvetica, Helvetica-Bold, ZapfDingbats) as subsets for
