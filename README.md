@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.6.0-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.6.1-1793d1?style=flat-square)
 ![board](https://img.shields.io/badge/GTR9%20Pro-v2.2-6f42c1?style=flat-square)
 ![bios](https://img.shields.io/badge/BIOS-GTRPRPI1001C-ed1c24?style=flat-square)
 ![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
@@ -79,9 +79,9 @@ retained in full.
 
 ## Performance markers
 
-Settings with a real performance dimension carry a red `◀ performance` marker
+Settings with a real performance dimension carry a red `■ performance` marker
 with a recommended value for the Ryzen AI Max+ 395 and a one-line rationale,
-beside the blue `◀ default` factory marker.
+beside the blue `■ default` factory marker.
 
 | Tag | Meaning |
 | --- | --- |
@@ -94,8 +94,9 @@ originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 
 ## Reading the document
 
-- Each chapter is one firmware form-set; sub-sections are individual Setup pages
-  in firmware presentation order.
+- The PDF is bookmarked by form-set; open the bookmarks panel to jump between
+  chapters. Each chapter is one firmware form-set; sub-sections are individual
+  Setup pages in firmware presentation order.
 - Tables are Setting / Type / Options-Values-Range. Bracketed values are raw
   NVRAM values (usable for SCEWIN/AMISCE scripting).
 - Defaults shown are compiled Standard Defaults; a unit's live values may differ.
@@ -105,5 +106,5 @@ originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-120ebc2f7ccdd92cb965e8fba128a3516d7381318b525ae0688e436ba41198b1  GTR9Pro_BIOS_Settings.pdf
+639371ab19c16c1ef22d37a2d2cb3e0f01cba21a4ea4f50b736bf2585335fa52  GTR9Pro_BIOS_Settings.pdf
 ```
