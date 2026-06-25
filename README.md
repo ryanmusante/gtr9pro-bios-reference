@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.5.2-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.6.0-1793d1?style=flat-square)
 ![board](https://img.shields.io/badge/GTR9%20Pro-v2.2-6f42c1?style=flat-square)
 ![bios](https://img.shields.io/badge/BIOS-GTRPRPI1001C-ed1c24?style=flat-square)
 ![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
@@ -105,5 +105,5 @@ originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-83bf8f716f81db007b1f34adf1fdd5441b697ad8f207a4357e74cb0c8d0523e5  GTR9Pro_BIOS_Settings.pdf
+120ebc2f7ccdd92cb965e8fba128a3516d7381318b525ae0688e436ba41198b1  GTR9Pro_BIOS_Settings.pdf
 ```

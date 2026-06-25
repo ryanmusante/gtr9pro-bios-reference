@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.0 - 2026-06-24
+
+- Removed the prose "About This Document" page; replaced it with a compact
+  one-page legend (layout, Type column, values, markers, tier tags). No
+  settings, types, values, ranges, or markers changed.
+- All 106 pages retained; settings pages (3-106) are byte-identical to 1.5.2
+  (988 default / 421 performance markers; 186 forms; 1,018 settings).
+- SHA256 -> 120ebc2f7ccdd92cb965e8fba128a3516d7381318b525ae0688e436ba41198b1.
+
 ## 1.5.2 - 2026-06-24
 
 - README: added "Which revision do you have?" section (v1.0 Intel E610-XT2 /
