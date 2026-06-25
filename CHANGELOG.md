@@ -2,236 +2,133 @@
 
 ## 1.5.2 - 2026-06-24
 
-- README: added a "Which revision do you have?" section to help readers confirm
-  this catalog matches their unit. The original GTR9 Pro v1.0 (Intel E610-XT2
-  NIC, BIOS vP### series) and the latest GTR9 Pro v2.2 (Realtek RT8127 NIC,
-  BIOS vPR## series) are distinguished by NIC chipset or current BIOS series;
-  this catalog documents the v2.2. Includes the Beelink BIOS download link.
-- Documentation-only change. The PDF is unchanged from 1.5.1 (SHA256
-  83bf8f716f81db007b1f34adf1fdd5441b697ad8f207a4357e74cb0c8d0523e5), so its
-  settings, markers, header, and cover are identical.
-
+- README: added "Which revision do you have?" section (v1.0 Intel E610-XT2 /
+  `P###` vs v2.2 Realtek RT8127 / `PR##`) and the Beelink BIOS download link.
+- Documentation-only; PDF unchanged from 1.5.1 (SHA256 83bf8f71…).
 
 ## 1.5.1 - 2026-06-24
 
-Accuracy pass on the default/performance markers in the Options / Values /
-Range column. No settings, types, values, or ranges changed; only marker
-correctness.
-
-- Fixed performance rationales that had been copy-pasted from **NVMe Support**
-  onto four unrelated settings. Each now describes its own setting:
-  - **SATA Support** — boot-time SATA enumeration scope (Last Boot SATA Devices
-    Only vs All SATA Devices), not a runtime speed control.
-  - **UFS Support** — UFS storage controller enable; no runtime perf impact.
-  - **VGA Support** — video BIOS / GOP init policy (Auto vs EFI Driver), not a
-    storage/performance setting.
-  - **PS2 Devices Support** — legacy PS/2 keyboard/mouse init; no perf effect.
-  The **NVMe Support** rationale (the correct original) is unchanged.
-- Added the blue `◀ default` marker to ten settings whose firmware Standard
-  default (IFR DefaultId 0x0) is exposed but was previously left unmarked,
-  verified against the decoded IFR (Universal-IFR-Extractor):
-  SHA-1 PCR Bank (Disabled), SHA256 PCR Bank (Enabled [0x2]), SHA384/SHA512/
-  SM3_256 PCR Bank (Disabled), XHCI Hand-off (Enabled), Secure Boot (Disabled),
-  Secure Boot Mode (Custom), Password protection of Runtime Variables (Enabled),
-  and SATA Support (Last Boot SATA Devices Only).
-- Marker tallies after this pass: 988 default (was 978; +10) and 421
-  performance (unchanged: 4 CHANGE / 375 TUNE / 42 KEEP). Settings that are
-  legitimately runtime-populated (System Language, Select CacheTagSize) remain
-  intentionally unmarked.
-- Verified the previously flagged "wrong default" candidates were false
-  positives in the audit tooling, not document errors — IPv4 PXE Support
-  (Disabled), Factory Key Provision (Disabled), Precision Boost Overdrive
-  (Auto [0xFF]), PWM SLOPE SETTING (1 PWM [0x3]), and VGA Support's default
-  (Auto) were already correct and were left unchanged.
+- Marker accuracy pass; no settings, types, values, or ranges changed.
+- Fixed performance rationales copy-pasted from **NVMe Support** onto four
+  unrelated settings — **SATA Support** (boot-time enumeration scope),
+  **UFS Support**, **VGA Support** (VBIOS/GOP init policy), **PS2 Devices
+  Support**. NVMe Support rationale unchanged.
+- Added `◀ default` to ten settings whose exposed Standard default was unmarked:
+  SHA-1/SHA384/SHA512/SM3_256 PCR Bank (Disabled), SHA256 PCR Bank (Enabled),
+  XHCI Hand-off (Enabled), Secure Boot (Disabled), Secure Boot Mode (Custom),
+  Password protection of Runtime Variables (Enabled), SATA Support.
+- Tallies: 988 default (+10); 421 performance (4 CHANGE / 375 TUNE / 42 KEEP).
 - SHA256 -> 83bf8f716f81db007b1f34adf1fdd5441b697ad8f207a4357e74cb0c8d0523e5.
-
 
 ## 1.5.0 - 2026-06-24
 
-- Set the document of record to the **GTR9 Pro v2.2 latest BIOS, `GTRPRPI1001C`**.
-  Running header on all 106 pages now reads `GTRPRPI1001C`; the page-1 subtitle
-  carries `GTR9 Pro v2.2 · Latest BIOS`; the BIOS Version / Build Date field
-  reads `GTR9 Pro v2.2 — latest BIOS v (GTRPRPI1001C)`. Page-1 Image &
-  Extraction Summary lists `GTRPRPI1001C.rom (current)` as the firmware image
-  and `GTRPRPI1001C (AfuEfi)` as the flash package, with `GTRPR07` retained as
-  the prior image.
-- Re-derived the catalog against the two current firmware images, `GTRPRPI1001C`
-  and `GTRPR07` (both 33,554,432 bytes / 32 MB), replacing `GTRPR05` as the
-  documented source. Catalog body unchanged: 7 form-sets, 186 forms, 1,018
-  configurable settings.
-- Verified the Setup interface is identical across images rather than assuming
-  it. All six Setup-bearing PE32 modules were extracted from both `GTRPR07` and
-  `GTRPRPI1001C` and compared by SHA-256 — Setup (899407D7), CbsSetupDxeSTXH
-  (C5440ED5), AmdPbsSetupDxe (BBB77CB9), AodDxe (442BA91E), AmdCpmPmfBoardDxe
-  (2C20B724), AmdRaid (AFD69E65) — all byte-identical. HII string packages also
-  compared by resolved string set (Setup 1181, CBS 930, PBS 693, AOD 536, PMF
-  220, RAID 587 strings) and are identical.
-- `GTRPRPI1001C` release note confirms it is based on `GTRPR05` with the single
-  change `PI 1.0.0c1` (AMD AGESA / Platform Initialization microcode refresh).
-  A PI/AGESA update changes silicon-init code, not the BIOS Setup IFR; the
-  byte-level module comparison above confirms zero Setup-option changes. No
-  setting-level edits were required.
-- README rewritten: GTR9 Pro v2.2 / latest-BIOS framing, source table, image
-  lineage, and the cross-image verification table; methodology gains a
-  verification step.
+- Set document of record to GTR9 Pro v2.2 latest BIOS `GTRPRPI1001C`; running
+  header, page-1 subtitle, and BIOS Version field updated accordingly.
+- Re-derived against `GTRPRPI1001C` and `GTRPR07` (both 32 MB), replacing
+  `GTRPR05`. Body unchanged: 7 form-sets, 186 forms, 1,018 settings.
+- Verified Setup interface identical across images: all six Setup-bearing PE32
+  modules byte-identical (SHA-256), HII string packages identical.
+- `GTRPRPI1001C` = `GTRPR05` + `PI 1.0.0c1` (AGESA/PI refresh); no Setup-option
+  changes.
 - SHA256 -> 229fa7666721d4965637ef50f98031e18a1f7a76f04d85e90bf5e84996e97f22.
-
 
 ## 1.4.1 - 2026-06-24
 
-- Correct the performance/default marker tallies of record. The shipped PDF
-  (SHA256 a703615b9273aea31d71d6ecc8dd40a47284e1d2646d249e6c6e2494086c46b1)
-  carries 421 performance markers (4 CHANGE / 375 TUNE / 42 KEEP) and 978
-  default markers. Both are self-consistent with the catalog (421 performance
-  lines == 421 tier tags) and with the 1.4.0 de-duplication delta below
-  (-21 TUNE performance, -27 default).
-- The immediately prior PDF (SHA256 41abf78997ffea37e89a905ef5efbd458e13a2bb716cb1c8dfb7cb80a3d86da9,
-  releases 1.3.8 through 1.3.11) carried 442 performance markers
-  (4 CHANGE / 396 TUNE / 42 KEEP) and 1,005 default markers. The 1.3.11 recount
-  to 446 performance (5 / 398 / 43), 1,004 default, and 1,450 total markers was
-  erroneous, as was the 1,006 default figure in 1.3.7. The 1.3.5 and 1.3.9
-  figures (442 = 4 / 396 / 42 performance, 1,005 default) were correct and are
-  reaffirmed here; the 1.4.0 marker delta (27 default + 21 all-TUNE performance
-  dropped) was also correct.
-- PDF unchanged; SHA256 a703615b9273aea31d71d6ecc8dd40a47284e1d2646d249e6c6e2494086c46b1
-  preserved. Changelog/README-only correction; README version badge -> 1.4.1.
+- Corrected marker tallies of record: 421 performance (4 CHANGE / 375 TUNE /
+  42 KEEP) and 978 default; both self-consistent with the 1.4.0 de-dup delta.
+- Prior PDF (releases 1.3.8–1.3.11) carried 442 performance / 1,005 default; the
+  1.3.11 recount to 446/1,004 and the 1.3.7 figure of 1,006 default were
+  erroneous. 1.3.5/1.3.9 figures reaffirmed.
+- PDF unchanged; SHA256 a703615b9273aea31d71d6ecc8dd40a47284e1d2646d249e6c6e2494086c46b1.
 
 ## 1.4.0 - 2026-06-23
 
-- Remove 35 verbatim-duplicate option rows the IFR extraction emitted more
-  than once within a single form (identical setting name, type, and values).
-  One canonical row kept per duplicate. Removals: Smart Fan Function (0x2737)
-  21, View Associated Physical Disks (0x222) 8, Display Configurations (0x10)
-  4, Trusted Computing (0x271A) 2.
-- Settings total: the shipped firmware tables held 1,053 option rows; removing
-  the 35 duplicates leaves 1,018. The 1,045 quoted in prose since 1.2.1 had
-  already deducted the 8 duplicate View Associated Physical Disks rows from the
-  count without removing them from the tables; 1,045 minus the remaining 27
-  duplicates is the same 1,018.
-- Only byte-identical repeats removed. Distinct-hardware rows that share an
-  option pattern are retained: PCI-E Port Device0-Device7 and their per-device
-  ASPM/Hotplug controls, the four CPU Smart Fan controllers, the eight
-  PPC Adjustment P-state-count variants, and the three per-device Trusted
-  Computing form variants (0x2719 / 0x271A / 0x271B).
-- Per-chapter settings: Aptio Setup 184 -> 161 (Smart Fan 21 + Trusted
-  Computing 2), AMD PBS 206 -> 202 (Display Configurations 4); RAIDXpert2
-  stays 37 in prose (tables 45 -> 37 once the 8 VAP duplicates are dropped);
-  AMD CBS, AOD, PMF, DASH/ASF unchanged.
-- Marker totals follow the removed rows: 27 default and 21 performance (all
-  TUNE) markers dropped.
-- PDF regenerated from the shipped document's tagged table structure (markers,
-  tier tags, and per-line shading reproduced; 113 -> 106 pages from the smaller
-  row set; Page N of M fields repopulated).
-- README settings badge and coverage table updated to 1,018; de-duplication
-  section added.
+- Removed 35 verbatim-duplicate rows: Smart Fan Function (0x2737) 21, View
+  Associated Physical Disks (0x222) 8, Display Configurations (0x10) 4, Trusted
+  Computing (0x271A) 2. One canonical row kept each.
+- Settings: 1,053 − 35 = 1,018. Distinct-hardware rows (PCI-E Device0–Device7,
+  four CPU Smart Fan controllers, eight PPC Adjustment variants, three Trusted
+  Computing form variants) retained.
+- Per-chapter: Aptio 184 -> 161, AMD PBS 206 -> 202, RAIDXpert2 37.
+- Marker totals dropped 27 default and 21 performance (all TUNE).
+- PDF regenerated; 113 -> 106 pages.
 - SHA256 -> a703615b9273aea31d71d6ecc8dd40a47284e1d2646d249e6c6e2494086c46b1.
 
 ## 1.3.11 - 2026-06-23
 
-- Correct performance-marker total of record: the shipped PDF carries 446
-  performance markers (5 CHANGE / 398 TUNE / 43 KEEP), not the 442
-  (4 / 396 / 42) carried forward in 1.3.5, 1.3.7, and 1.3.9. Body and PDF
-  were already correct; only the prior changelog tallies were off.
-- Default markers reconcile to 1,004 (1,450 total markers minus 446
-  performance), superseding the 1,005 figure in 1.3.9.
-- PDF unchanged; SHA256 41abf78997ffea37e89a905ef5efbd458e13a2bb716cb1c8dfb7cb80a3d86da9.
+- Corrected performance total to 446 (later superseded by 1.4.1); PDF unchanged.
 
 ## 1.3.10 - 2026-06-23
 
-- Format changelog as Markdown lists: de-indent tab-led bullets to
-  column 0 so GitHub renders them as a list, not a code block.
-- PDF unchanged; SHA256 41abf78997ffea37e89a905ef5efbd458e13a2bb716cb1c8dfb7cb80a3d86da9.
+- Format changelog as Markdown lists; PDF unchanged.
 
 ## 1.3.9 - 2026-06-23
 
-- Shade each marker line in its marker color: blue behind ◀ default,
-  red behind ◀ performance (1,005 blue, 442 settings-table rows red).
-- Legend lines in About This Document left unshaded.
-- Body content, totals, and firmware ordering unchanged.
+- Shade each marker line in its marker color (blue ◀ default, red ◀ performance).
 - SHA256 -> 41abf78997ffea37e89a905ef5efbd458e13a2bb716cb1c8dfb7cb80a3d86da9.
 
 ## 1.3.8 - 2026-06-23
 
-- Fix corrupt document Word refused to open: remove three duplicate
-  w:styleId definitions (Heading1/2/3) from styles.xml; the surviving
-  definitions retain outlineLvl, so the table of contents still resolves.
-- Convert deliverable to PDF (table of contents and Page N of M fields
-  populated on export); drop the Word source.
-- Body content, totals, and firmware ordering unchanged.
+- Fixed corrupt document (removed duplicate Heading1/2/3 styleIds); converted
+  deliverable to PDF, dropped Word source.
 - SHA256 -> 9f20e029be8b16b9cb1d0550097b872e083f8b9d7ce878fd030ab5cda02e6166.
 
 ## 1.3.7 - 2026-06-22
 
-- Trim verbose front-matter prose; condense performance-source list.
-- Remove triplicated "record originals" caveat; keep one instance.
-- Rewrite README in GitHub style (badges, source/coverage tables).
-- Body unchanged: 149 tables, 1,045 rows, 1,006 default markers,
-  442 performance markers (4 CHANGE / 396 TUNE / 42 KEEP), 113 pages.
+- Trimmed front-matter prose; rewrote README in GitHub style.
 
 ## 1.3.6 - 2026-06-22
 
-- Remove orphan part word/_rels/comments.xml.rels. Body unchanged.
+- Removed orphan comments rels part.
 
 ## 1.3.5 - 2026-06-19
 
-- Drop performance marker from 603 rows with no performance dimension.
-- Markers remain on 442 rows (396 TUNE, 42 KEEP, 4 CHANGE).
-- Legend no longer lists NEUTRAL; 138 -> 113 pages.
+- Dropped performance marker from 603 rows with no performance dimension;
+  138 -> 113 pages.
 
 ## 1.3.4 - 2026-06-19
 
-- Add default markers to 18 Selection rows the IFR extraction missed.
-- Leave 8 platform-specific and 2 borderline rows unmarked.
+- Added default markers to 18 Selection rows the extraction missed.
 
 ## 1.3.3 - 2026-06-19
 
-- Append default marker to 348 numeric rows that printed a default
-  inline but carried no marker.
+- Appended default marker to 348 numeric rows missing one.
 
 ## 1.3.2 - 2026-06-19
 
-- Adjust marker colors: default royal blue (2563EB), performance red
-  (D50000); every pair now dE >= 31.
+- Adjusted marker colors: default blue (2563EB), performance red (D50000).
 
 ## 1.3.1 - 2026-06-19
 
-- Standardize markers: default blue, performance red. Superseded by 1.3.2.
+- Standardized marker colors. Superseded by 1.3.2.
 
 ## 1.3.0 - 2026-06-19
 
-- Render performance recommendations inline at the foot of the Options
-  cell (marker + tier tag + rationale), not a fourth column.
-- Narrow settings tables to three columns; return to portrait US Letter.
+- Rendered performance recommendations inline at foot of Options cell; narrowed
+  tables to three columns, portrait US Letter.
 
 ## 1.2.3 - 2026-06-19
 
-- Fix blank footer page numbers: cache PAGE/NUMPAGES with a dirty flag.
-- Normalize clause separator in 683 performance notes to an em-dash.
-- Drop vestigial empty comments part and its registration.
+- Fixed blank footer page numbers; normalized performance-note separators.
 
 ## 1.2.2 - 2026-06-17
 
-- Fix two performance notes opening with the wrong single quote.
+- Fixed two performance notes with wrong opening quote.
 
 ## 1.2.1 - 2026-06-17
 
-- Collapse a 32-row runtime USB mass-storage dropdown to one summary row.
-- Reconcile totals: 1,074 -> 1,045 settings; Aptio 213 -> 184.
+- Collapsed runtime USB mass-storage dropdown to one row; 1,074 -> 1,045.
 
 ## 1.2.0 - 2026-06-15
 
-- Add tiered performance recommendation to every settings table, with a
-  derivation section and legend.
-- Widen tables to four columns; switch section to landscape.
+- Added tiered performance recommendations with derivation section and legend.
 
 ## 1.1.0 - 2026-06-15
 
-- Add DASH/ASF (8) and RAIDXpert2 (37) chapters; add Appendix A for
-  excluded generic UEFI network-driver forms.
-- Resolve RAID labels shown as <invalid offset> via a custom SIBT decoder.
-- Totals: 5 -> 7 form-sets, 167 -> 186 forms, 1,134 -> 1,074 settings.
+- Added DASH/ASF (8) and RAIDXpert2 (37) chapters; Appendix A for excluded
+  generic UEFI network forms. 5 -> 7 form-sets, 167 -> 186 forms.
 
 ## 1.0.0 - 2026-06-15
 
 - Initial catalog: 5 form-sets, 167 forms, 1,134 settings, decoded from
-  GTRPR05.rom.
+  `GTRPR05.rom`.
