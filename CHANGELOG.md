@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.4.1 - 2026-06-24
+
+- Correct the performance/default marker tallies of record. The shipped PDF
+  (SHA256 a703615b9273aea31d71d6ecc8dd40a47284e1d2646d249e6c6e2494086c46b1)
+  carries 421 performance markers (4 CHANGE / 375 TUNE / 42 KEEP) and 978
+  default markers. Both are self-consistent with the catalog (421 performance
+  lines == 421 tier tags) and with the 1.4.0 de-duplication delta below
+  (-21 TUNE performance, -27 default).
+- The immediately prior PDF (SHA256 41abf78997ffea37e89a905ef5efbd458e13a2bb716cb1c8dfb7cb80a3d86da9,
+  releases 1.3.8 through 1.3.11) carried 442 performance markers
+  (4 CHANGE / 396 TUNE / 42 KEEP) and 1,005 default markers. The 1.3.11 recount
+  to 446 performance (5 / 398 / 43), 1,004 default, and 1,450 total markers was
+  erroneous, as was the 1,006 default figure in 1.3.7. The 1.3.5 and 1.3.9
+  figures (442 = 4 / 396 / 42 performance, 1,005 default) were correct and are
+  reaffirmed here; the 1.4.0 marker delta (27 default + 21 all-TUNE performance
+  dropped) was also correct.
+- PDF unchanged; SHA256 a703615b9273aea31d71d6ecc8dd40a47284e1d2646d249e6c6e2494086c46b1
+  preserved. Changelog/README-only correction; README version badge -> 1.4.1.
+
 ## 1.4.0 - 2026-06-23
 
 - Remove 35 verbatim-duplicate option rows the IFR extraction emitted more
