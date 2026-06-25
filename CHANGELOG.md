@@ -1,5 +1,36 @@
 # Changelog
 
+## 1.5.0 - 2026-06-24
+
+- Set the document of record to the **GTR9 Pro v2.2 latest BIOS, `GTRPRPI1001C`**.
+  Running header on all 106 pages now reads `GTRPRPI1001C`; the page-1 subtitle
+  carries `GTR9 Pro v2.2 · Latest BIOS`; the BIOS Version / Build Date field
+  reads `GTR9 Pro v2.2 — latest BIOS v (GTRPRPI1001C)`. Page-1 Image &
+  Extraction Summary lists `GTRPRPI1001C.rom (current)` as the firmware image
+  and `GTRPRPI1001C (AfuEfi)` as the flash package, with `GTRPR07` retained as
+  the prior image.
+- Re-derived the catalog against the two current firmware images, `GTRPRPI1001C`
+  and `GTRPR07` (both 33,554,432 bytes / 32 MB), replacing `GTRPR05` as the
+  documented source. Catalog body unchanged: 7 form-sets, 186 forms, 1,018
+  configurable settings.
+- Verified the Setup interface is identical across images rather than assuming
+  it. All six Setup-bearing PE32 modules were extracted from both `GTRPR07` and
+  `GTRPRPI1001C` and compared by SHA-256 — Setup (899407D7), CbsSetupDxeSTXH
+  (C5440ED5), AmdPbsSetupDxe (BBB77CB9), AodDxe (442BA91E), AmdCpmPmfBoardDxe
+  (2C20B724), AmdRaid (AFD69E65) — all byte-identical. HII string packages also
+  compared by resolved string set (Setup 1181, CBS 930, PBS 693, AOD 536, PMF
+  220, RAID 587 strings) and are identical.
+- `GTRPRPI1001C` release note confirms it is based on `GTRPR05` with the single
+  change `PI 1.0.0c1` (AMD AGESA / Platform Initialization microcode refresh).
+  A PI/AGESA update changes silicon-init code, not the BIOS Setup IFR; the
+  byte-level module comparison above confirms zero Setup-option changes. No
+  setting-level edits were required.
+- README rewritten: GTR9 Pro v2.2 / latest-BIOS framing, source table, image
+  lineage, and the cross-image verification table; methodology gains a
+  verification step.
+- SHA256 -> 229fa7666721d4965637ef50f98031e18a1f7a76f04d85e90bf5e84996e97f22.
+
+
 ## 1.4.1 - 2026-06-24
 
 - Correct the performance/default marker tallies of record. The shipped PDF

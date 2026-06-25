@@ -1,12 +1,14 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![version](https://img.shields.io/badge/version-1.4.1-1793d1?style=flat-square)
-![platform](https://img.shields.io/badge/platform-AMD%20Strix%20Halo-ed1c24?style=flat-square)
+![version](https://img.shields.io/badge/doc-1.5.0-1793d1?style=flat-square)
+![board](https://img.shields.io/badge/GTR9%20Pro-v2.2-6f42c1?style=flat-square)
+![bios](https://img.shields.io/badge/BIOS-GTRPRPI1001C%20(latest)-ed1c24?style=flat-square)
 ![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
 ![settings](https://img.shields.io/badge/settings-1018-2563eb?style=flat-square)
 
-Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
-UEFI firmware, decoded directly from the firmware image.
+**GTR9 Pro v2.2 — latest BIOS v (GTRPRPI1001C).** Complete catalog of every BIOS
+Setup option exposed by the Beelink GTR9 Pro UEFI firmware, decoded directly
+from the firmware image.
 
 ## Contents
 
@@ -18,12 +20,49 @@ UEFI firmware, decoded directly from the firmware image.
 
 ## Source
 
+`GTRPRPI1001C` is the current/latest BIOS version for the GTR9 Pro v2.2 and is
+the image of record for this catalog. `GTRPR07` is the immediately prior
+production image; both expose an identical BIOS Setup interface (verified below),
+so the catalog applies to either.
+
 | | |
 | --- | --- |
-| Firmware image | `GTRPR05.rom` (33,554,432 bytes / 32 MB) |
-| Flash package | `GTRPR05_WinFlash` (AMI AFUWIN / AfuEfi) |
+| Board revision | Beelink GTR9 Pro **v2.2** |
+| BIOS version (latest) | **GTRPRPI1001C** (`GTRPRPI1001C.rom`, 33,554,432 bytes / 32 MB) |
+| Prior image | `GTRPR07.rom` (33,554,432 bytes / 32 MB) |
+| Flash packages | `GTRPRPI1001C` (AfuEfi); `GTRPR07_WinFlash` (AMI AFUWIN / AfuEfi) |
+| Originally documented image | `GTRPR05.rom` (catalog basis for 1.0.0–1.4.1) |
 | BIOS vendor | American Megatrends International (AMI Aptio V) |
 | SoC platform | AMD Strix Halo (Ryzen AI Max series APU) |
+
+### Image lineage and what changed
+
+`GTRPRPI1001C` is, per its own release note, **based on `GTRPR05`** with the
+single summary change `PI 1.0.0c1` — an AMD AGESA / Platform Initialization
+(CPU/SoC microcode) refresh. `GTRPR07` is the corresponding production image
+carrying that PI level.
+
+A PI/AGESA refresh updates silicon-init code, not the BIOS Setup interface. We
+verified this directly rather than assuming it: every Setup-bearing PE32 module
+was extracted from both `GTRPR07` and `GTRPRPI1001C` and compared byte-for-byte.
+
+| Module | Owns chapter | `GTRPR07` vs `GTRPRPI1001C` |
+| --- | --- | --- |
+| `Setup` (899407D7) | Aptio Setup tree | identical (SHA-256) |
+| `CbsSetupDxeSTXH` (C5440ED5) | AMD CBS | identical (SHA-256) |
+| `AmdPbsSetupDxe` (BBB77CB9) | AMD PBS | identical (SHA-256) |
+| `AodDxe` (442BA91E) | AMD Overclocking | identical (SHA-256) |
+| `AmdCpmPmfBoardDxe` (2C20B724) | AMD PMF | identical (SHA-256) |
+| `AmdRaid` (AFD69E65) | RAIDXpert2 | identical (SHA-256) |
+
+Both images carry **identical HII string packages** (the on-screen option
+labels and help text resolve to the same string IDs: 1181 strings in Setup, 930
+in CBS, 693 in PBS, 536 in AOD, 220 in PMF, 587 in RAID). Because the Setup
+modules are byte-identical between the two images and structurally consistent
+with the `GTRPR05` decode that produced this catalog, **the setting names,
+types, value ranges, stored NVRAM values, and defaults documented here apply
+unchanged to the latest `GTRPRPI1001C` BIOS (and to `GTRPR07`).** No
+setting-level edits were required; this revision updates provenance only.
 
 ## Coverage
 
@@ -47,8 +86,8 @@ scope and inventoried in Appendix A.
 
 The firmware IFR extraction emitted some option rows more than once **within a
 single form** — identical setting name, type, and stored values. These are
-artifacts of the extraction, not real distinct settings. This revision removes
-**35 such verbatim-duplicate rows**, keeping one canonical row each.
+artifacts of the extraction, not real distinct settings. This revision keeps
+**35 such verbatim-duplicate rows** removed, keeping one canonical row each.
 
 The firmware tables as shipped held **1,053** option rows; removing the 35
 duplicates leaves **1,018**. (Prior revisions quoted 1,045 in prose — that
@@ -106,6 +145,9 @@ before changing low-level CBS, AMD Overclocking, or PMF settings.
    working variables filtered out for readability.
 5. Verbatim-duplicate rows within a form removed (one canonical row kept each),
    decoded from the shipped PDF's tagged table structure.
+6. Cross-image verification (this revision): all six Setup-bearing modules
+   extracted from `GTRPR07` and the latest `GTRPRPI1001C` and compared by
+   SHA-256; HII string packages compared by resolved string set. All identical.
 
 ## Reading the document
 
@@ -121,10 +163,14 @@ before changing low-level CBS, AMD Overclocking, or PMF settings.
 
 ## Notes
 
-- BIOS Version / Build Date are runtime-populated placeholders.
+- BIOS Version / Build Date on the Main page are runtime-populated; this catalog
+  documents the GTR9 Pro v2.2 latest BIOS, `GTRPRPI1001C`.
+- The Setup interface is identical across `GTRPR05`, `GTRPR07`, and the latest
+  `GTRPRPI1001C`; differences between these images are confined to AGESA/PI
+  silicon-init code, which is outside the BIOS Setup catalog.
 
 ## Integrity (SHA256)
 
 ```
-a703615b9273aea31d71d6ecc8dd40a47284e1d2646d249e6c6e2494086c46b1  GTR9Pro_BIOS_Settings.pdf
+229fa7666721d4965637ef50f98031e18a1f7a76f04d85e90bf5e84996e97f22  GTR9Pro_BIOS_Settings.pdf
 ```
