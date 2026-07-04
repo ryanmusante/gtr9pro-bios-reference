@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.6.3-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.6.4-1793d1?style=flat-square)
 ![board](https://img.shields.io/badge/GTR9%20Pro-v2.2-6f42c1?style=flat-square)
 ![bios](https://img.shields.io/badge/BIOS-GTRPRPI1001C-ed1c24?style=flat-square)
 ![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
@@ -14,7 +14,7 @@ Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
 | Revision | NIC | BIOS series |
 | --- | --- | --- |
 | GTR9 Pro v1.0 | Intel E610-XT2 | `P###` |
-| **GTR9 Pro v2.2** (this catalog) | Realtek RT8127 | `PR##` / `GTRPRPI####` |
+| **GTR9 Pro v2.2** (this catalog) | Realtek RTL8127 | `PR##` / `GTRPRPI####` |
 
 Identify yours by NIC chipset or current BIOS series.
 BIOS downloads: https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS
