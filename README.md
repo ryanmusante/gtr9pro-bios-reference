@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.6.5-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.7.0-1793d1?style=flat-square)
 ![board](https://img.shields.io/badge/GTR9%20Pro-v2.2-6f42c1?style=flat-square)
 ![bios](https://img.shields.io/badge/BIOS-GTRPRPI1001C-ed1c24?style=flat-square)
 ![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
@@ -51,7 +51,7 @@ $ sudo dmidecode -t 40 | grep -i agesa
 
 ## Coverage
 
-7 form-sets, 186 forms, **1,010** settings. 120 pages.
+7 form-sets, 186 forms, **1,010** settings. 48 pages.
 
 | Chapter | Form-set | Forms | Settings |
 | --- | --- | ---: | ---: |
@@ -67,10 +67,20 @@ Generic UEFI network-stack forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) are contributed
 by shared platform drivers rather than by this board's BIOS. They are listed in
 Appendix A and are not counted above.
 
+## Elisions
+
+Every setting is counted; the document prints 918 rows because two classes of
+repetition are elided.
+
+| Class | Rule |
+| --- | --- |
+| Long enumerations | 12 or more options collapse to the default plus first/last option and a count |
+| Identical sibling forms | 17 forms whose table is byte-identical to an earlier sibling are cross-referenced, not reprinted (APTS State Index 1–15, `Select Physical Disks 0x211`, `Select Physical Disk Operations 0x320`) |
+
 Rows sharing an option pattern but addressing distinct hardware or indices
 (PCI-E `Device0`–`Device7`, the four CPU Smart Fan controllers, the eight
-`PPC Adjustment` variants, the sixteen `APTS State Index` forms, the three
-per-device Trusted Computing forms) are retained in full.
+`PPC Adjustment` variants, the three per-device Trusted Computing forms) are
+retained in full.
 
 ## Performance markers
 
@@ -80,39 +90,62 @@ beside the blue `■ default` factory marker.
 
 | Tag | Meaning | Count |
 | --- | --- | ---: |
-| **CHANGE** | Change away from default for a clear gain | 4 |
-| **TUNE** | Performance-relevant but workload-specific / expert-only | 371 |
-| **KEEP** | Default already favors performance; leave it | 46 |
+| **CHANGE** | Change away from default for a clear gain | 5 |
+| **TUNE** | Performance-relevant but workload-specific / expert-only | 372 |
+| **KEEP** | Default already favors performance; leave it | 48 |
 
-988 settings carry a compiled default marker; 421 carry a performance marker.
+988 settings carry a compiled default marker; 425 carry a performance marker.
+
+Rationales are one line and lead with the recommended value wherever the
+setting has one; the remainder states why.
 
 TUNE entries are validated starting points, not guaranteed-stable — record
 originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 
+## Platform profile
+
+Recommendations assume a CachyOS host configured by `ry-install`. Where
+firmware and kernel govern the same behaviour, the kernel setting wins at
+runtime and the firmware row is redundant rather than wrong.
+
+| Firmware area | Host interaction |
+| --- | --- |
+| CBS → NBIO → `IOMMU` | Kernel boots `amd_iommu=off`; leave firmware Enabled if KVM/VFIO guests are still in use |
+| `UMA Frame buffer Size` | 512M — RADV and ROCm reach memory through GTT |
+| S3 / D3Cold / wake-source rows | All systemd sleep targets are masked; no runtime effect |
+| NPU (XDNA) rows | `amdxdna` blacklisted; NPU-gated options inert |
+| PCIe ASPM rows | `pcie_aspm.policy=performance` overrides per-port firmware policy |
+| `Global C-state Control` | Firmware twin of `processor.max_cstate=1` |
+| Network Stack / PXE | Disabled in firmware; boot path is systemd-boot with no UEFI network stack |
+
 ## Reading the document
 
-- The PDF opens on its bookmark tree and carries a full table of contents;
-  every chapter and form is a bookmark target.
+- The PDF opens on its bookmark tree and carries a table of contents; every
+  chapter and form is a bookmark target.
 - Each chapter is one firmware form-set; sub-sections are individual Setup
   pages in firmware presentation order.
-- Tables are Setting / Type / Options-Values-Range. Bracketed values are raw
-  NVRAM values (usable for AMISCE/SCEWIN scripting).
+- Tables are Setting / Type / Values. Options are separated by `·`; bracketed
+  values are raw NVRAM values (usable for AMISCE/SCEWIN scripting).
 - Defaults shown are compiled Standard Defaults; a unit's live values may differ.
 - Many options are conditionally hidden (suppress-if / grayout-if), so the
   catalog is a superset of what any single unit displays.
-- A setting whose values span a page break repeats its name marked *(cont.)*.
 
 ## Notes on specific settings
 
 - **`System Configuration`** (AMD CBS → SMU Common Options) is the platform
   cTDP profile. The compiled default is `120W [0x3]`; `140W [0x5]` is the
-  highest profile the board exposes.
+  highest profile the board exposes. AMD rates this part at cTDP 45–120 W;
+  the 140 W figure is Beelink's own validated chassis ceiling.
+- **`Precision Boost Overdrive`** and **`Curve Optimizer`** are supported on
+  the Ryzen AI Max+ 395; the PRO variant of the same silicon has both fused
+  off, so guidance written for PRO parts does not apply here.
 - **`UMA Frame buffer Size`** defaults to `96G [0x18000]`, which leaves roughly
-  31 GiB visible to the OS on a 128 GB unit. Under Linux the Vulkan/RADV path
-  uses GTT, so `512M [0x200]` restores the full pool to the OS without costing
-  the iGPU memory.
-- **`IOMMU`** disabled measures roughly 6% higher iGPU memory-read bandwidth,
-  at the cost of VFIO/GPU passthrough, NPU access, and reliable suspend.
+  31 GiB visible to the OS on a 128 GB unit. Under Linux the Vulkan/RADV and
+  ROCm paths use GTT, so `512M [0x200]` restores the full pool to the OS
+  without costing the iGPU memory.
+- **`IOMMU`** disabled measures roughly 6% higher iGPU memory-read bandwidth
+  (234 vs 221 GB/s in published Strix Halo runs), at the cost of VFIO/GPU
+  passthrough, NPU access, DMA isolation, and reliable suspend.
 - **RAIDXpert2** forms enumerate up to 32 SATA physical disks and 32 arrays.
   This board exposes no SATA ports — the chapter is catalogued for completeness
   and its runtime-populated fields are annotated as such.
@@ -120,5 +153,5 @@ originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 ## Integrity (SHA256)
 
 ```
-bd363c13a47ef5f72f7b1a83a281242c328234bd2ad549bf4968c5fba4bdd07c  GTR9Pro_BIOS_Settings.pdf
+60787b38cce7b0e117d76327b16c8d28a49c760e2534610a502066b8767a093a  GTR9Pro_BIOS_Settings.pdf
 ```
