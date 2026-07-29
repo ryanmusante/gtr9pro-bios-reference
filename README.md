@@ -1,11 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
 ![doc](https://img.shields.io/badge/doc-1.7.0-1793d1?style=flat-square)
-![board](https://img.shields.io/badge/GTR9%20Pro-v2.2-6f42c1?style=flat-square)
-![bios](https://img.shields.io/badge/BIOS-GTRPRPI1001C-ed1c24?style=flat-square)
-![firmware](https://img.shields.io/badge/firmware-AMI%20Aptio%20V-555?style=flat-square)
-![settings](https://img.shields.io/badge/settings-1010-2563eb?style=flat-square)
-
 Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
 (v2.2) UEFI firmware, decoded directly from the firmware image.
 
