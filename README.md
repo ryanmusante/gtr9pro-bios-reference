@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.7.0-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.7.1-1793d1?style=flat-square)
 
 Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
 (v2.2) UEFI firmware, decoded directly from the firmware image.
@@ -10,12 +10,12 @@ Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
 | Revision | NIC | BIOS series |
 | --- | --- | --- |
 | GTR9 Pro v1.0 | Intel E610-XT2 | `P###` |
-| **GTR9 Pro v2.2** (this catalog) | Realtek RTL8127 | `PR##` / `GTRPRPI####` |
+| **GTR9 Pro v2.2** (this catalog) | Realtek RTL8127 | `GTRPR##` / `GTRPRPI…` |
 
 Identify yours by NIC chipset or current BIOS series.
 BIOS downloads: https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS
 
-## Contents
+## Files
 
 | File | Purpose |
 | --- | --- |
@@ -25,7 +25,7 @@ BIOS downloads: https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS
 
 ## Image of record
 
-| | |
+| Field | Value |
 | --- | --- |
 | Board | Beelink GTR9 Pro **v2.2** |
 | BIOS | **GTRPRPI1001C** (32 MB) |
@@ -33,7 +33,10 @@ BIOS downloads: https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS
 | BIOS vendor | AMI Aptio V |
 | SoC | AMD Strix Halo (Ryzen AI Max+ 395) |
 
-`GTRPRPI1001C` is `GTRPR05` plus a silicon-init (AGESA/PI) refresh. A PI/AGESA
+`GTRPRPI1001C` is a Secure Boot key + AGESA/PI refresh of the `GTRPR0X`
+line — Beelink's folder for it is named
+`GTR9-Version2-GTRPRPI1001C_Note-secure-boot-update-AMD-AGESA-only-GTRPR0X-can-flash`
+([Beelink forum, 2026-05-30](https://bbs.bee-link.com/d/11236-gtr9-pro-ryzen-ai-max-395-128gb-need-help-identifying-bios-update)). A PI/AGESA
 update changes platform init code, not the Setup interface — all six
 Setup-bearing modules are byte-identical (SHA-256) across `GTRPR07` and
 `GTRPRPI1001C`, with identical HII string packages. Setting names, types,
@@ -47,7 +50,7 @@ $ sudo dmidecode -t 40 | grep -i agesa
 
 ## Coverage
 
-7 form-sets, 186 forms, **1,010** settings. 48 pages.
+7 form-sets, 186 forms, **1,010** settings. 44 pages.
 
 | Chapter | Form-set | Forms | Settings |
 | --- | --- | ---: | ---: |
@@ -71,7 +74,10 @@ repetition are elided.
 | Class | Rule |
 | --- | --- |
 | Long enumerations | 12 or more options collapse to the default plus first/last option and a count |
-| Identical sibling forms | 17 forms whose table is byte-identical to an earlier sibling are cross-referenced, not reprinted (APTS State Index 1–15, `Select Physical Disks 0x211`, `Select Physical Disk Operations 0x320`) |
+| Identical sibling forms | 17 forms byte-identical to an earlier sibling are cross-referenced, not reprinted |
+
+The cross-referenced forms are APTS State Index 1–15,
+`Select Physical Disks 0x211`, and `Select Physical Disk Operations 0x320`.
 
 Rows sharing an option pattern but addressing distinct hardware or indices
 (PCI-E `Device0`–`Device7`, the four CPU Smart Fan controllers, the eight
@@ -100,16 +106,16 @@ originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 
 ## Platform profile
 
-Recommendations assume a CachyOS host configured by `ry-install`. Where
-firmware and kernel govern the same behaviour, the kernel setting wins at
-runtime and the firmware row is redundant rather than wrong.
+Recommendations assume a CachyOS host configured by `ry-install` (7.162
+line). Where firmware and kernel govern the same behavior, the kernel setting
+wins at runtime and the firmware row is redundant rather than wrong.
 
 | Firmware area | Host interaction |
 | --- | --- |
-| CBS → NBIO → `IOMMU` | Kernel boots `amd_iommu=off`; leave firmware Enabled if KVM/VFIO guests are still in use |
-| `UMA Frame buffer Size` | 512M — RADV and ROCm reach memory through GTT |
+| CBS → NBIO → `IOMMU` | Host boots `amd_iommu=on iommu=pt`; keep firmware Enabled — NPU, KVM/VFIO and DMA isolation depend on it |
+| `UMA Frame buffer Size` | Recommendation `512M` (RADV/ROCm use GTT); host currently runs a `32G` carve, ≈47 GiB GTT |
 | S3 / D3Cold / wake-source rows | All systemd sleep targets are masked; no runtime effect |
-| NPU (XDNA) rows | `amdxdna` blacklisted; NPU-gated options inert |
+| NPU (XDNA) rows | `amdxdna` loads and the NPU is active; NPU-gated rows are live |
 | PCIe ASPM rows | `pcie_aspm.policy=performance` overrides per-port firmware policy |
 | `Global C-state Control` | Firmware twin of `processor.max_cstate=1` |
 | Network Stack / PXE | Disabled in firmware; boot path is systemd-boot with no UEFI network stack |
@@ -122,7 +128,10 @@ runtime and the firmware row is redundant rather than wrong.
   pages in firmware presentation order.
 - Tables are Setting / Type / Values. Options are separated by `·`; bracketed
   values are raw NVRAM values (usable for AMISCE/SCEWIN scripting).
-- Defaults shown are compiled Standard Defaults; a unit's live values may differ.
+- Defaults shown are compiled Standard Defaults; a unit's live values may
+  differ.
+- Option and setting strings are reproduced verbatim, firmware typos included
+  (`USB4 D3 Eanble`, `USBC Port Harware Disable`, `Minimun Frequency`, …).
 - Many options are conditionally hidden (suppress-if / grayout-if), so the
   catalog is a superset of what any single unit displays.
 
@@ -140,8 +149,10 @@ runtime and the firmware row is redundant rather than wrong.
   ROCm paths use GTT, so `512M [0x200]` restores the full pool to the OS
   without costing the iGPU memory.
 - **`IOMMU`** disabled measures roughly 6% higher iGPU memory-read bandwidth
-  (234 vs 221 GB/s in published Strix Halo runs), at the cost of VFIO/GPU
-  passthrough, NPU access, DMA isolation, and reliable suspend.
+  (234 vs 221 GB/s, community strix-halo-testing runs by lhl), at the cost of
+  VFIO/GPU passthrough, NPU access, DMA isolation, and reliable suspend.
+- **`TjMax`** prints its compiled default `0x5A`; AMD's rated Tjmax for the
+  395 is 100 °C. The document leaves the compiled value as extracted.
 - **RAIDXpert2** forms enumerate up to 32 SATA physical disks and 32 arrays.
   This board exposes no SATA ports — the chapter is catalogued for completeness
   and its runtime-populated fields are annotated as such.
@@ -149,5 +160,5 @@ runtime and the firmware row is redundant rather than wrong.
 ## Integrity (SHA256)
 
 ```
-60787b38cce7b0e117d76327b16c8d28a49c760e2534610a502066b8767a093a  GTR9Pro_BIOS_Settings.pdf
+2d4ea699640bdbc1f68704d4ddbc2d712cca71d858e46068d8636e3233ef7753  GTR9Pro_BIOS_Settings.pdf
 ```

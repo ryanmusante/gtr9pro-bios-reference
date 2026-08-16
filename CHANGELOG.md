@@ -2,6 +2,38 @@ Changelog
 =========
 
 
+1.7.1 - 2026-08-15
+------------------
+
+  - pdf: rebuild all 68 Submenus lines from their item lists; 25 were
+    glued or torn where separators had followed the old line breaks.
+  - pdf: un-splice the AMD CBS (0x7000) submenu tail from its
+    Information line; South Bridge keeps the bare goto token 17113.
+  - cbs: restore the torn names STT_SKIN_TEMPERATURE_LIMIT_APU/_HS2;
+    long identifier names now wrap at underscores.
+  - setup: platform profile matches the live host - amd_iommu=on
+    iommu=pt, NPU active; UMA row states recommendation vs live carve.
+  - pmf: AC/DC profile rationales repunctuated; DC rows no longer
+    instruct setting AC limits.
+  - aod: GFX Curve Optimizer rationale de-duplicated; GPU Boost Clock
+    Override drops the CPU-row (Positive) label.
+  - aod: Scalar and Curve Shaper ranges use en dashes (1X-2X, 3-5).
+  - cbs: PSPP rationale names only offered options; TjMax states the
+    compiled 0x5A default beside AMD's 100 C rating.
+  - cbs: MWAIT and pbs: Core Count rationales lead with the option
+    label; setup: PSS Support scoped to the acpi-cpufreq fallback.
+  - pdf: contents set two-column; it was 5 pages at 1.7.0, not the 2
+    the note below claims; it is 2 now and the total is 44 pages.
+  - pdf: DASH banner pluralizes by count (1 form); spelling
+    standardized to American English; elision wording matches README.
+  - pdf: verbatim-strings caveat added (firmware typos preserved).
+  - pdf: LiberationSans is the canvas base font - no Helvetica object;
+    page labels, language and keywords added to the catalog.
+  - readme: Contents renamed Files; image-of-record header row;
+    revision pattern GTRPRPI...; behaviour -> behavior; hash updated.
+  - readme: lineage cites Beelink's published 1001C folder name.
+
+
 1.7.0 - 2026-07-27
 ------------------
 
