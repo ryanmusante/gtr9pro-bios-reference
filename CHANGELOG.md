@@ -2,6 +2,22 @@ Changelog
 =========
 
 
+1.7.2 - 2026-08-29
+------------------
+
+  - setup: platform profile drops amd_iommu=on from the host cmdline
+    (inert token; iommu=pt is load-bearing) and re-anchors to the
+    ry-install 7.164+ line. Cover and README updated together.
+  - cbs: Corrector Branch Predictor KEEP -> TUNE; the compiled default
+    is Disable [0x0], no Auto option exists, and the old rationale
+    contradicted the printed default.
+  - cbs: REP-MOV/STOS Streaming and pbs: ACP Power Gating drop a
+    spurious (Auto); neither setting offers an Auto option.
+  - Tallies: 425 performance (5 CHANGE / 373 TUNE / 47 KEEP); 988
+    default.
+  - readme: tier table and hash updated.
+
+
 1.7.1 - 2026-08-15
 ------------------
 

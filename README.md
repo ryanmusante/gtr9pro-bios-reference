@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.7.1-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.7.2-1793d1?style=flat-square)
 
 Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
 (v2.2) UEFI firmware, decoded directly from the firmware image.
@@ -93,8 +93,8 @@ beside the blue `■ default` factory marker.
 | Tag | Meaning | Count |
 | --- | --- | ---: |
 | **CHANGE** | Change away from default for a clear gain | 5 |
-| **TUNE** | Performance-relevant but workload-specific / expert-only | 372 |
-| **KEEP** | Default already favors performance; leave it | 48 |
+| **TUNE** | Performance-relevant but workload-specific / expert-only | 373 |
+| **KEEP** | Default already favors performance; leave it | 47 |
 
 988 settings carry a compiled default marker; 425 carry a performance marker.
 
@@ -106,13 +106,13 @@ originals before changing low-level CBS, AMD Overclocking, or PMF settings.
 
 ## Platform profile
 
-Recommendations assume a CachyOS host configured by `ry-install` (7.162
+Recommendations assume a CachyOS host configured by `ry-install` (7.164+
 line). Where firmware and kernel govern the same behavior, the kernel setting
 wins at runtime and the firmware row is redundant rather than wrong.
 
 | Firmware area | Host interaction |
 | --- | --- |
-| CBS → NBIO → `IOMMU` | Host boots `amd_iommu=on iommu=pt`; keep firmware Enabled — NPU, KVM/VFIO and DMA isolation depend on it |
+| CBS → NBIO → `IOMMU` | Host boots `iommu=pt`; keep firmware Enabled — NPU, KVM/VFIO and DMA isolation depend on it |
 | `UMA Frame buffer Size` | Recommendation `512M` (RADV/ROCm use GTT); host currently runs a `32G` carve, ≈47 GiB GTT |
 | S3 / D3Cold / wake-source rows | All systemd sleep targets are masked; no runtime effect |
 | NPU (XDNA) rows | `amdxdna` loads and the NPU is active; NPU-gated rows are live |
@@ -160,5 +160,5 @@ wins at runtime and the firmware row is redundant rather than wrong.
 ## Integrity (SHA256)
 
 ```
-2d4ea699640bdbc1f68704d4ddbc2d712cca71d858e46068d8636e3233ef7753  GTR9Pro_BIOS_Settings.pdf
+bb35842fc6ec564df6fe9234689e2a537a9ddb711b30dd357f796cb016a46a15  GTR9Pro_BIOS_Settings.pdf
 ```
