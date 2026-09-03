@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.7.2-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.7.3-1793d1?style=flat-square)
 
 Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
 (v2.2) UEFI firmware, decoded directly from the firmware image.
@@ -93,8 +93,8 @@ beside the blue `■ default` factory marker.
 | Tag | Meaning | Count |
 | --- | --- | ---: |
 | **CHANGE** | Change away from default for a clear gain | 5 |
-| **TUNE** | Performance-relevant but workload-specific / expert-only | 373 |
-| **KEEP** | Default already favors performance; leave it | 47 |
+| **TUNE** | Performance-relevant but workload-specific / expert-only | 365 |
+| **KEEP** | Default already favors performance; leave it | 55 |
 
 988 settings carry a compiled default marker; 425 carry a performance marker.
 
@@ -160,5 +160,5 @@ wins at runtime and the firmware row is redundant rather than wrong.
 ## Integrity (SHA256)
 
 ```
-bb35842fc6ec564df6fe9234689e2a537a9ddb711b30dd357f796cb016a46a15  GTR9Pro_BIOS_Settings.pdf
+43c2352a0b3f3f7ee620b5ecbf9fac799d81bdf9c2cb4a18e14cdd2508c6b147  GTR9Pro_BIOS_Settings.pdf
 ```

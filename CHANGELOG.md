@@ -2,6 +2,49 @@ Changelog
 =========
 
 
+1.7.3 - 2026-09-02
+------------------
+
+  - setup: PPC Adjustment x8 TUNE -> KEEP; _PPC only caps the highest
+    core P-state the OS may request. The old rationale conflated it
+    with Fixed SOC Pstate / APBDIS and recommended the default.
+  - setup: Smart Fan 3 Mode named Full-On, which that fan does not
+    offer; fan-mode rationales use the printed labels (Automatic Mode,
+    Full on Mode); Manual PWM Setting is a fixed duty and PWM SLOPE
+    SETTING a slope, neither a fan-curve point.
+  - setup: stray separator inside the Mass Storage Device Emulation
+    Type prose removed; NVMe Support rationale reworded.
+  - cbs: Accept (0x7011) under Custom Core Pstates lost a Submenus line
+    that belongs to Accept (0x7023) under LPDDR Timing Configuration.
+  - cbs: L1/L2 Stream and L2 Up/Down Prefetcher lead with Enable (Auto);
+    the rows offer Enable, not Enabled.
+  - cbs: Thermal Control states its compiled default (Manual); PROCHOT
+    Control no longer speaks of disabling PROCHOT; Sustained Power
+    Limit states mW; iGPU Configuration points below, not above; OC
+    Mode names the compiled Customized default.
+  - cbs: HPET ACPI table In SB, System Temperature Tracking and STAPM
+    Boost name the values the rows offer (Auto / 1 / 0).
+  - pbs: DC Battery Saver Limit no longer instructs setting AC limits
+    (missed at 1.7.1); Dynamic P3T limit states the DC-only compiled
+    default; PCIe x4 Slot D3 Cold, Discrete GPU D3Cold HPD Support and
+    D3Cold Force Gen1 drop the generic D3Cold rationale; Unused GPP
+    Clocks Off states its effect.
+  - pbs: APU PROCHOT# setting had a separator between its fourth
+    option label and [0x3]. Repaired.
+  - aod: Curve Optimizer magnitudes are unsigned, the sign row carries
+    the sign; CPU Voltage, GFX Clock Frequency and GFX Voltage read
+    Auto (0).
+  - Rationales lead with the value: aod CPU Frequency, Memory Target
+    Speed, LCLK Maximum Frequency; cbs Maximum Memory Data Clock Speed,
+    Custom Pstate0, Fan Control; pbs Pcie Dxio Timing ControlEnable.
+  - pdf: Appendix A marks Network Stack Configuration as the driver
+    form, distinct from Setup 0x2752; creation date and Creator are set
+    at build time.
+  - Tallies: 425 performance (5 CHANGE / 365 TUNE / 55 KEEP); 988
+    default.
+  - readme: tier table and hash updated.
+
+
 1.7.2 - 2026-08-29
 ------------------
 
