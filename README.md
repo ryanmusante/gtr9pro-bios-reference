@@ -1,9 +1,9 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.7.3-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.7.4-1793d1?style=flat-square)
 
-Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
-(v2.2) UEFI firmware, decoded directly from the firmware image.
+Every BIOS Setup option exposed by the Beelink GTR9 Pro (v2.2) UEFI firmware,
+decoded from the firmware image.
 
 ## Which revision do you have?
 
@@ -12,16 +12,7 @@ Complete catalog of every BIOS Setup option exposed by the Beelink GTR9 Pro
 | GTR9 Pro v1.0 | Intel E610-XT2 | `P###` |
 | **GTR9 Pro v2.2** (this catalog) | Realtek RTL8127 | `GTRPR##` / `GTRPRPI…` |
 
-Identify yours by NIC chipset or current BIOS series.
 BIOS downloads: https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS
-
-## Files
-
-| File | Purpose |
-| --- | --- |
-| `GTR9Pro_BIOS_Settings.pdf` | Reference document |
-| `README.md` | This file |
-| `CHANGELOG.md` | Version history |
 
 ## Image of record
 
@@ -33,24 +24,13 @@ BIOS downloads: https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS
 | BIOS vendor | AMI Aptio V |
 | SoC | AMD Strix Halo (Ryzen AI Max+ 395) |
 
-`GTRPRPI1001C` is a Secure Boot key + AGESA/PI refresh of the `GTRPR0X`
-line — Beelink's folder for it is named
-`GTR9-Version2-GTRPRPI1001C_Note-secure-boot-update-AMD-AGESA-only-GTRPR0X-can-flash`
-([Beelink forum, 2026-05-30](https://bbs.bee-link.com/d/11236-gtr9-pro-ryzen-ai-max-395-128gb-need-help-identifying-bios-update)). A PI/AGESA
-update changes platform init code, not the Setup interface — all six
-Setup-bearing modules are byte-identical (SHA-256) across `GTRPR07` and
-`GTRPRPI1001C`, with identical HII string packages. Setting names, types,
-ranges, NVRAM values, and defaults apply unchanged to both.
-
-To read the AGESA version your unit is actually running:
-
-```console
-$ sudo dmidecode -t 40 | grep -i agesa
-```
+`GTRPRPI1001C` is a Secure Boot key + AGESA/PI refresh of the `GTRPR0X` line;
+its six Setup-bearing modules are byte-identical (SHA-256) to `GTRPR07`, so
+setting names, types, ranges, NVRAM values and defaults apply to both.
 
 ## Coverage
 
-7 form-sets, 186 forms, **1,010** settings. 44 pages.
+7 form-sets, 186 forms, **1,010** settings, 44 pages.
 
 | Chapter | Form-set | Forms | Settings |
 | --- | --- | ---: | ---: |
@@ -62,33 +42,20 @@ $ sudo dmidecode -t 40 | grep -i agesa
 | DASH / ASF | DashManagementDxe | 1 | 8 |
 | RAIDXpert2 | RAID formset | 29 | 29 |
 
-Generic UEFI network-stack forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) are contributed
-by shared platform drivers rather than by this board's BIOS. They are listed in
-Appendix A and are not counted above.
+Generic UEFI network-stack forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) come from
+shared drivers, not this board's BIOS; they are listed in Appendix A and not
+counted.
 
-## Elisions
-
-Every setting is counted; the document prints 918 rows because two classes of
-repetition are elided.
-
-| Class | Rule |
-| --- | --- |
-| Long enumerations | 12 or more options collapse to the default plus first/last option and a count |
-| Identical sibling forms | 17 forms byte-identical to an earlier sibling are cross-referenced, not reprinted |
-
-The cross-referenced forms are APTS State Index 1–15,
-`Select Physical Disks 0x211`, and `Select Physical Disk Operations 0x320`.
-
-Rows sharing an option pattern but addressing distinct hardware or indices
-(PCI-E `Device0`–`Device7`, the four CPU Smart Fan controllers, the eight
-`PPC Adjustment` variants, the three per-device Trusted Computing forms) are
-retained in full.
+918 rows are printed: enumerations of 12 or more options collapse to the
+default plus first/last option and a count, and 17 forms byte-identical to an
+earlier sibling (APTS State Index 1–15, `Select Physical Disks 0x211`,
+`Select Physical Disk Operations 0x320`) are cross-referenced, not reprinted.
 
 ## Performance markers
 
-Settings with a real performance dimension carry a red `■ performance` marker
-with a recommended value for the Ryzen AI Max+ 395 and a one-line rationale,
-beside the blue `■ default` factory marker.
+Settings with a real performance dimension carry a red `■` marker with a
+recommended value for the Ryzen AI Max+ 395 and a one-line rationale, beside
+the blue `■` compiled-default marker.
 
 | Tag | Meaning | Count |
 | --- | --- | ---: |
@@ -96,69 +63,56 @@ beside the blue `■ default` factory marker.
 | **TUNE** | Performance-relevant but workload-specific / expert-only | 365 |
 | **KEEP** | Default already favors performance; leave it | 55 |
 
-988 settings carry a compiled default marker; 425 carry a performance marker.
-
-Rationales are one line and lead with the recommended value wherever the
-setting has one; the remainder states why.
-
-TUNE entries are validated starting points, not guaranteed-stable — record
-originals before changing low-level CBS, AMD Overclocking, or PMF settings.
+988 settings carry a default marker; 425 carry a performance marker. TUNE
+entries are starting points, not guaranteed-stable — record originals before
+changing CBS, AMD Overclocking or PMF settings.
 
 ## Platform profile
 
-Recommendations assume a CachyOS host configured by `ry-install` (7.164+
-line). Where firmware and kernel govern the same behavior, the kernel setting
-wins at runtime and the firmware row is redundant rather than wrong.
+Recommendations assume a CachyOS host configured by `ry-install` (7.164+).
+Where kernel and firmware govern the same behavior, the kernel setting wins at
+runtime.
 
 | Firmware area | Host interaction |
 | --- | --- |
 | CBS → NBIO → `IOMMU` | Host boots `iommu=pt`; keep firmware Enabled — NPU, KVM/VFIO and DMA isolation depend on it |
-| `UMA Frame buffer Size` | Recommendation `512M` (RADV/ROCm use GTT); host currently runs a `32G` carve, ≈47 GiB GTT |
+| `UMA Frame buffer Size` | Recommendation `512M` (RADV/ROCm use GTT); host runs a `32G` carve, ≈47 GiB GTT |
 | S3 / D3Cold / wake-source rows | All systemd sleep targets are masked; no runtime effect |
-| NPU (XDNA) rows | `amdxdna` loads and the NPU is active; NPU-gated rows are live |
+| NPU (XDNA) rows | `amdxdna` loads; NPU-gated rows are live |
 | PCIe ASPM rows | `pcie_aspm.policy=performance` overrides per-port firmware policy |
 | `Global C-state Control` | Firmware twin of `processor.max_cstate=1` |
-| Network Stack / PXE | Disabled in firmware; boot path is systemd-boot with no UEFI network stack |
+| Network Stack / PXE | Disabled in firmware; systemd-boot, no UEFI network path |
 
 ## Reading the document
 
-- The PDF opens on its bookmark tree and carries a table of contents; every
-  chapter and form is a bookmark target.
-- Each chapter is one firmware form-set; sub-sections are individual Setup
-  pages in firmware presentation order.
-- Tables are Setting / Type / Values. Options are separated by `·`; bracketed
-  values are raw NVRAM values (usable for AMISCE/SCEWIN scripting).
-- Defaults shown are compiled Standard Defaults; a unit's live values may
-  differ.
-- Option and setting strings are reproduced verbatim, firmware typos included
-  (`USB4 D3 Eanble`, `USBC Port Harware Disable`, `Minimun Frequency`, …).
-- Many options are conditionally hidden (suppress-if / grayout-if), so the
-  catalog is a superset of what any single unit displays.
+- Tables are Setting / Type / Values; options are separated by `·` and
+  bracketed values are raw NVRAM values (AMISCE/SCEWIN scripting).
+- Defaults are compiled Standard Defaults; live values may differ.
+- Strings are verbatim, firmware typos included (`USB4 D3 Eanble`,
+  `USBC Port Harware Disable`, `Minimun Frequency`, …).
+- Many options are suppress-if / grayout-if hidden; the catalog is a superset
+  of any one unit's display.
 
 ## Notes on specific settings
 
-- **`System Configuration`** (AMD CBS → SMU Common Options) is the platform
-  cTDP profile. The compiled default is `120W [0x3]`; `140W [0x5]` is the
-  highest profile the board exposes. AMD rates this part at cTDP 45–120 W;
-  the 140 W figure is Beelink's own validated chassis ceiling.
+- **`System Configuration`** (CBS → SMU Common Options) is the cTDP profile:
+  default `120W [0x3]`, highest exposed `140W [0x5]`. AMD rates 45–120 W;
+  140 W is Beelink's validated chassis ceiling.
 - **`Precision Boost Overdrive`** and **`Curve Optimizer`** are supported on
-  the Ryzen AI Max+ 395; the PRO variant of the same silicon has both fused
-  off, so guidance written for PRO parts does not apply here.
-- **`UMA Frame buffer Size`** defaults to `96G [0x18000]`, which leaves roughly
-  31 GiB visible to the OS on a 128 GB unit. Under Linux the Vulkan/RADV and
-  ROCm paths use GTT, so `512M [0x200]` restores the full pool to the OS
-  without costing the iGPU memory.
-- **`IOMMU`** disabled measures roughly 6% higher iGPU memory-read bandwidth
-  (234 vs 221 GB/s, community strix-halo-testing runs by lhl), at the cost of
-  VFIO/GPU passthrough, NPU access, DMA isolation, and reliable suspend.
+  the Ryzen AI Max+ 395; the PRO variant has both fused off.
+- **`UMA Frame buffer Size`** defaults to `96G [0x18000]`, leaving ~31 GiB to
+  the OS on a 128 GB unit; RADV and ROCm use GTT, so `512M [0x200]` restores
+  the pool without costing the iGPU.
+- **`IOMMU`** disabled measures ~6% higher iGPU memory read (234 vs 221 GB/s,
+  community strix-halo-testing runs by lhl) at the cost of VFIO passthrough,
+  NPU access, DMA isolation and reliable suspend.
 - **`TjMax`** prints its compiled default `0x5A`; AMD's rated Tjmax for the
-  395 is 100 °C. The document leaves the compiled value as extracted.
-- **RAIDXpert2** forms enumerate up to 32 SATA physical disks and 32 arrays.
-  This board exposes no SATA ports — the chapter is catalogued for completeness
-  and its runtime-populated fields are annotated as such.
+  395 is 100 °C.
+- **RAIDXpert2** enumerates up to 32 SATA disks and 32 arrays; this board has
+  no SATA ports — catalogued for completeness, runtime fields annotated.
 
 ## Integrity (SHA256)
 
 ```
-43c2352a0b3f3f7ee620b5ecbf9fac799d81bdf9c2cb4a18e14cdd2508c6b147  GTR9Pro_BIOS_Settings.pdf
+c4a93a7632e589e26ae12b89361f9bc67b77ed09f84a75f2f8f099b6cea3710a  GTR9Pro_BIOS_Settings.pdf
 ```
