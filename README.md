@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.7.4-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.7.5-1793d1?style=flat-square)
 
 Every BIOS Setup option exposed by the Beelink GTR9 Pro (v2.2) UEFI firmware,
 decoded from the firmware image.
@@ -30,7 +30,7 @@ setting names, types, ranges, NVRAM values and defaults apply to both.
 
 ## Coverage
 
-7 form-sets, 186 forms, **1,010** settings, 44 pages.
+7 form-sets, 186 forms, **1,010** settings, 45 pages.
 
 | Chapter | Form-set | Forms | Settings |
 | --- | --- | ---: | ---: |
@@ -42,28 +42,35 @@ setting names, types, ranges, NVRAM values and defaults apply to both.
 | DASH / ASF | DashManagementDxe | 1 | 8 |
 | RAIDXpert2 | RAID formset | 29 | 29 |
 
-Generic UEFI network-stack forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) come from
-shared drivers, not this board's BIOS; they are listed in Appendix A and not
-counted.
+Generic UEFI network-stack forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) and the four
+Setup-referenced driver formsets (Super IO Configuration, SIO Common Setting,
+PCI Subsystem Settings, NVMe Configuration) come from shared drivers, not this
+board's BIOS; they are listed in Appendix A and not counted. Action,
+confirmation and runtime-generated prompts (BBS boot priorities, Secure Boot
+key management, RAID dialogs, firmware-update flow, Save & Exit) have no
+catalog entry.
 
 918 rows are printed: enumerations of 12 or more options collapse to the
-default plus first/last option and a count, and 17 forms byte-identical to an
-earlier sibling (APTS State Index 1–15, `Select Physical Disks 0x211`,
-`Select Physical Disk Operations 0x320`) are cross-referenced, not reprinted.
+default plus first/last option and the total option count, and
+17 forms byte-identical to an earlier sibling (APTS State Index 1–15,
+`Select Physical Disks 0x211`, `Select Physical Disk Operations 0x320`) are
+cross-referenced, not reprinted.
 
 ## Performance markers
 
 Settings with a real performance dimension carry a red `■` marker with a
 recommended value for the Ryzen AI Max+ 395 and a one-line rationale, beside
-the blue `■` compiled-default marker.
+the blue `■` compiled-default marker. Rows without a red marker have no
+performance dimension — including safety limits and rows inert on this board;
+leave them at default.
 
 | Tag | Meaning | Count |
 | --- | --- | ---: |
 | **CHANGE** | Change away from default for a clear gain | 5 |
-| **TUNE** | Performance-relevant but workload-specific / expert-only | 365 |
-| **KEEP** | Default already favors performance; leave it | 55 |
+| **TUNE** | Performance-relevant but workload-specific / expert-only | 351 |
+| **KEEP** | Default already favors performance; leave it | 47 |
 
-988 settings carry a default marker; 425 carry a performance marker. TUNE
+988 settings carry a default marker; 403 carry a performance marker. TUNE
 entries are starting points, not guaranteed-stable — record originals before
 changing CBS, AMD Overclocking or PMF settings.
 
@@ -75,7 +82,7 @@ runtime.
 
 | Firmware area | Host interaction |
 | --- | --- |
-| CBS → NBIO → `IOMMU` | Host boots `iommu=pt`; keep firmware Enabled — NPU, KVM/VFIO and DMA isolation depend on it |
+| CBS → NBIO → `IOMMU` | Host boots `iommu=pt`; keep the firmware default `Auto` (resolves Enabled) — NPU, KVM/VFIO and DMA isolation depend on it |
 | `UMA Frame buffer Size` | Recommendation `512M` (RADV/ROCm use GTT); host runs a `32G` carve, ≈47 GiB GTT |
 | S3 / D3Cold / wake-source rows | All systemd sleep targets are masked; no runtime effect |
 | NPU (XDNA) rows | `amdxdna` loads; NPU-gated rows are live |
@@ -88,6 +95,9 @@ runtime.
 - Tables are Setting / Type / Values; options are separated by `·` and
   bracketed values are raw NVRAM values (AMISCE/SCEWIN scripting).
 - Defaults are compiled Standard Defaults; live values may differ.
+- Grey `Submenus` lines list every goto prompt on a form, including prompts
+  whose target has no catalog entry; `Information fields` lines are read-only
+  text rows.
 - Strings are verbatim, firmware typos included (`USB4 D3 Eanble`,
   `USBC Port Harware Disable`, `Minimun Frequency`, …).
 - Many options are suppress-if / grayout-if hidden; the catalog is a superset
@@ -114,5 +124,5 @@ runtime.
 ## Integrity (SHA256)
 
 ```
-c4a93a7632e589e26ae12b89361f9bc67b77ed09f84a75f2f8f099b6cea3710a  GTR9Pro_BIOS_Settings.pdf
+e12870b4f1b3346a05cd455a6025cd42cc09bbf6fe87775485c1803fc152e43c  GTR9Pro_BIOS_Settings.pdf
 ```

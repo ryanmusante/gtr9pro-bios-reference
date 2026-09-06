@@ -2,10 +2,44 @@ Changelog
 =========
 
 
+1.7.5 - 2026-09-05
+------------------
+
+  - Markers removed from 22 rows whose rationale states no performance
+    dimension (14 TUNE, 8 KEEP: PROCHOT Control, Critical Temperature,
+    DXIO/link-training timers, PME Turn Off, D3Cold HPD / Force Gen1,
+    DC power-profile limits, AC/DC debounce timers, Pcie Port Control,
+    SATA/UFS/VGA/PS2 Support, Pwm Frequency, Fan polarity, Dynamic
+    LID). Legend gains an Unmarked line.
+  - cbs: IOMMU rationale led with Auto/Enabled; the printed default is
+    Auto [0xF], which resolves to Enabled. Cover and readme platform
+    profile aligned.
+  - Collapsed enumerations print the total option count (was the count
+    of options other than the default); legend and readme say so.
+  - Legend defines the Submenus and Information fields lines. Appendix
+    A lists the four Setup-referenced driver formsets (Super IO
+    Configuration, SIO Common Setting, PCI Subsystem Settings, NVMe
+    Configuration) and notes that action, confirmation and
+    runtime-generated prompts have no catalog entry.
+  - setup: South Bridge (0x2725) Submenus item 17113 annotated as an
+    unresolved string token (0x42D9).
+  - Rationales that open with the recommended option use "Label -- ..."
+    throughout (43 rows). AC power-profile limits reworded with a
+    target (leave 0); Fan Control no longer cites an external post;
+    All Core Curve Optimizer Magnitude starts at 10, not 15-20.
+  - pdf: unused Helvetica font resource removed (LiberationSans only);
+    XMP metadata added. 45 pages.
+  - changelog: 1.7.0 tally line notes the four unitemized marker
+    additions; 1.7.4 entry records the PDF re-stamp.
+  - Tallies: 403 performance (5 CHANGE / 351 TUNE / 47 KEEP); 988
+    default.
+
+
 1.7.4 - 2026-09-03
 ------------------
 
-  - readme, changelog: trimmed to vital information. Catalog unchanged.
+  - readme, changelog: trimmed to vital information. Catalog text
+    unchanged; pdf re-stamped (version, date, hash).
 
 
 1.7.3 - 2026-09-02
@@ -66,9 +100,9 @@ Changelog
     Enable TUNE -> KEEP; IOMMU cites the 234 vs 221 GB/s delta. aod:
     PPT Limit separates AMD's 45-120 W cTDP from Beelink's 140 W
     ceiling; PBO/CO noted supported on the non-PRO 395.
-  - Tallies: 425 performance (5 CHANGE / 372 TUNE / 48 KEEP); 988
-    default. README gains Elisions and Platform profile; CHANGELOG in
-    kernel.org style.
+  - Tallies: 425 performance (5 CHANGE / 372 TUNE / 48 KEEP; net +4
+    markers over 1.6.5, not itemized); 988 default. README gains
+    Elisions and Platform profile; CHANGELOG in kernel.org style.
 
 
 1.6.5 - 2026-07-26
