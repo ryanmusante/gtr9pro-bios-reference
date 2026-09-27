@@ -2,6 +2,74 @@ Changelog
 =========
 
 
+1.7.8 - 2026-09-27
+------------------
+
+  - pbs: Initial SD7 L1 Substates at OS runtime marked TUNE; it is the
+    same link power management as the ASPM and Clock PM rows.
+  - pmf: power-throttler PPT limit rationales drop an unverified mW
+    unit.
+  - Platform profile: the PCIe row covers ASPM, L1 substates and Clock
+    PM (pcie_aspm.policy=performance governs all three); GTT at the
+    kernel default is anchored to ry-install 7.217.0. Readme aligned.
+  - Appendix A: Network Stack Configuration driver marked unresolved.
+    raid: Array Size Unit notes that it has no compiled default.
+  - Tallies: 437 performance (5 CHANGE / 384 TUNE / 48 KEEP); 988
+    default.
+
+
+1.7.7 - 2026-09-27
+------------------
+
+  - Markers added for sibling consistency: 6 USB/USB4 D3 rows join the
+    D3/D3Cold family as TUNE; PMF power-throttler PPT limits x2 join
+    their STT siblings as TUNE (x16 via APTS State Index 0-15). 46
+    pages.
+  - Platform profile: D3/D3Cold rows still gate device idle at runtime
+    (only S3 and wake-source rows are inert with sleep masked); GTT
+    stays at the kernel default under the 32G carve; amd_iommu=off
+    names its gain (~6% more iGPU read bandwidth). Readme aligned.
+  - Rationales: "Label -- ..." keeps a capital after the dash (13
+    rows); 7 descriptive rationales take a semicolon instead of a
+    label-style dash (Pstate0 Freq/VID, TDC/EDC_VDDCR_VDD, CCX TDC/EDC,
+    STT Control); Fan Table Index names its lever; UCLK DIV1 MODE
+    reads "i.e.,".
+  - pdf: contents links carry their entry title.
+  - readme: Gray, cataloged; RAID cross-reference names quoted
+    verbatim; 918-row sentence reordered.
+  - changelog: 1.7.6 entry corrected (one two-dash rationale became two
+    sentences, not a semicolon) and its comma splice fixed.
+  - Tallies: 436 performance (5 CHANGE / 383 TUNE / 48 KEEP); 988
+    default.
+
+
+1.7.6 - 2026-09-27
+------------------
+
+  - Rationales corrected: ASPM Mode Control x8 (Disabled means no L0s/L1
+    entry, not full link speed); Clock PM CLK_REQ0-6 x7 get their own
+    CLKREQ# text; IOMMU drops "required for KVM guests"; Slow PPT Limit
+    is an averaged short-window cap (long loads follow the Sustained
+    Power Limit); TjMax no longer contradicts Thermal Control; AC
+    power-profile limits x3 say AC, not AC/DC.
+  - Markers removed from 5 rows with no performance dimension (ACPI
+    Sleep State, Secure Boot, Unused GPP Clocks Off, Fake DC Level, APTS
+    State Index of DC Battery Saver); LCLK Maximum Frequency TUNE ->
+    KEEP (compiled default is already the maximum).
+  - "Label -- ..." applied to the 10 rows 1.7.5 missed (PPC Adjustment
+    x8, Curve Optimizer, iGPU Mem Bar Configuration); 9 rationales with
+    two em dashes lose the second (8 take a semicolon, LCLK Frequency
+    Control splits into two sentences); PBO Scalar reads 2X-4X.
+  - Appendix A: generic drivers ship in the image, so their forms come
+    from shared drivers, not this board's Setup modules; readme aligned.
+  - pdf: footer separates version and page number; contents entries
+    link to their sections.
+  - readme: short rationale (was one-line); IOMMU and UMA platform rows
+    match the cover; USBC Port Harware Disable Support quoted in full.
+  - Tallies: 398 performance (5 CHANGE / 345 TUNE / 48 KEEP); 988
+    default.
+
+
 1.7.5 - 2026-09-05
 ------------------
 
