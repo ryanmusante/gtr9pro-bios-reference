@@ -2,6 +2,28 @@ Changelog
 =========
 
 
+1.7.9 - 2026-10-20
+------------------
+
+  - aod: GFX Curve Optimizer, its Sign row, GFX Clock Frequency and
+    GFX Voltage stop promising an iGPU undervolt; the offset is
+    unconfirmed on Strix Halo.
+  - Rationales: shorthand spelled out (perf, temp, skin-temp, freq,
+    init, config, "for daily", sane); comma splices and "=" used as a
+    verb rewritten (PPC Adjustment x8, ASPM Mode Control x8, TjMax,
+    Dynamic P3T limit, SPL Control, Fan Control); missing articles
+    restored. IOMMU lists reliable suspend among its costs, as the
+    readme does.
+  - pdf: cover approximation sign unified to ~; the bold font subset
+    gets its own tag; viewers show the document title.
+  - readme: download link in angle brackets; integrity block tagged
+    text; ~47 GiB.
+  - changelog: 1.7.8 Appendix A and raid items split; 1.6.4 and 1.5.2
+    prefixes lowercased.
+  - Tallies: 437 performance (5 CHANGE / 384 TUNE / 48 KEEP); 988
+    default.
+
+
 1.7.8 - 2026-09-27
 ------------------
 
@@ -13,7 +35,7 @@ Changelog
     PM (pcie_aspm.policy=performance governs all three); GTT at the
     kernel default is anchored to ry-install 7.217.0. Readme aligned.
   - Appendix A: Network Stack Configuration driver marked unresolved.
-    raid: Array Size Unit notes that it has no compiled default.
+  - raid: Array Size Unit notes that it has no compiled default.
   - Tallies: 437 performance (5 CHANGE / 384 TUNE / 48 KEEP); 988
     default.
 
@@ -191,7 +213,7 @@ Changelog
 1.6.4 - 2026-07-04
 ------------------
 
-  - README: Realtek NIC part number RT8127 -> RTL8127.
+  - readme: Realtek NIC part number RT8127 -> RTL8127.
 
 
 1.6.3 - 2026-06-25
@@ -222,7 +244,7 @@ Changelog
 1.5.2 - 2026-06-24
 ------------------
 
-  - README: revision guide and BIOS download link.
+  - readme: revision guide and BIOS download link.
 
 
 1.5.1 - 2026-06-24

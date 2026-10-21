@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.7.8-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.7.9-1793d1?style=flat-square)
 
 Every BIOS Setup option exposed by the Beelink GTR9 Pro (v2.2) UEFI firmware,
 decoded from the firmware image.
@@ -12,7 +12,7 @@ decoded from the firmware image.
 | GTR9 Pro v1.0 | Intel E610-XT2 | `P###` |
 | **GTR9 Pro v2.2** (this catalog) | Realtek RTL8127 | `GTRPR##` / `GTRPRPI…` |
 
-BIOS downloads: https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS
+BIOS downloads: <https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS>
 
 ## Image of record
 
@@ -83,7 +83,7 @@ runtime.
 | Firmware area | Host interaction |
 | --- | --- |
 | CBS → NBIO → `IOMMU` | Host boots `iommu=pt`; keep the firmware default `Auto` (resolves Enabled) — NPU, KVM/VFIO passthrough and DMA isolation depend on it |
-| `UMA Frame buffer Size` | Recommendation `512M` (RADV/ROCm use GTT); host runs a `32G` carve by choice; from `ry-install` 7.217.0 GTT stays at the kernel default (≈47 GiB, measured 2026-08-14) |
+| `UMA Frame buffer Size` | Recommendation `512M` (RADV/ROCm use GTT); host runs a `32G` carve by choice; from `ry-install` 7.217.0 GTT stays at the kernel default (~47 GiB, measured 2026-08-14) |
 | S3 / wake-source rows | All systemd sleep targets are masked; no runtime effect |
 | D3 / D3Cold rows | Still gate device idle at runtime; the wake-latency cost is marginal |
 | NPU (XDNA) rows | `amdxdna` loads; NPU-gated rows are live |
@@ -124,6 +124,6 @@ runtime.
 
 ## Integrity (SHA256)
 
-```
-3757a1482f51175e592474f3285761be57f9826a13212701820c738e1ccdb307  GTR9Pro_BIOS_Settings.pdf
+```text
+dbfa9ebf091ab2c87e692dd101f4fcdafba8df09e5f843107d45f7d9e2b012bc  GTR9Pro_BIOS_Settings.pdf
 ```
