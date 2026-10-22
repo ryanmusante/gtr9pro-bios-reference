@@ -2,22 +2,33 @@ Changelog
 =========
 
 
+1.7.10 - 2026-10-21
+-------------------
+
+  - Rationales: Auto/Enabled, Auto/x2APIC and Auto (Enabled) labels
+    read "X (Auto)" like the rest; "leave default" and "default is"
+    gain "the"; "leave on" reads "leave it on"; PBO + CO spaced.
+  - pdf: compact content streams restored (230,105 -> 220,320 bytes).
+  - readme: Platform profile table becomes a list; no line passes 80
+    columns.
+  - changelog: 1.7.9 entry trimmed; prefixes glued into 1.7.0 and 1.6.5
+    bullets split out.
+  - Tallies: 437 performance (5 CHANGE / 384 TUNE / 48 KEEP); 988
+    default.
+
+
 1.7.9 - 2026-10-20
 ------------------
 
   - aod: GFX Curve Optimizer, its Sign row, GFX Clock Frequency and
-    GFX Voltage stop promising an iGPU undervolt; the offset is
-    unconfirmed on Strix Halo.
-  - Rationales: shorthand spelled out (perf, temp, skin-temp, freq,
-    init, config, "for daily", sane); comma splices and "=" used as a
-    verb rewritten (PPC Adjustment x8, ASPM Mode Control x8, TjMax,
-    Dynamic P3T limit, SPL Control, Fan Control); missing articles
-    restored. IOMMU lists reliable suspend among its costs, as the
-    readme does.
-  - pdf: cover approximation sign unified to ~; the bold font subset
-    gets its own tag; viewers show the document title.
-  - readme: download link in angle brackets; integrity block tagged
-    text; ~47 GiB.
+    GFX Voltage no longer promise an iGPU undervolt (unconfirmed on
+    Strix Halo).
+  - Rationales: shorthand spelled out, comma splices and "=" as a verb
+    rewritten, missing articles restored; IOMMU adds reliable suspend
+    to its costs.
+  - pdf: ~ for approximations; distinct font subset tags; viewers show
+    the document title.
+  - readme: angle-bracket link; tagged integrity block.
   - changelog: 1.7.8 Appendix A and raid items split; 1.6.4 and 1.5.2
     prefixes lowercased.
   - Tallies: 437 performance (5 CHANGE / 384 TUNE / 48 KEEP); 988
@@ -187,12 +198,13 @@ Changelog
   - raid: submenu lines had absorbed page headers and the Appendix A
     table; runtime filler collapsed to one range row each.
   - cbs: UMA Frame buffer Size TUNE -> CHANGE (512M under Linux); SVM
-    Enable TUNE -> KEEP; IOMMU cites the 234 vs 221 GB/s delta. aod:
-    PPT Limit separates AMD's 45-120 W cTDP from Beelink's 140 W
+    Enable TUNE -> KEEP; IOMMU cites the 234 vs 221 GB/s delta.
+  - aod: PPT Limit separates AMD's 45-120 W cTDP from Beelink's 140 W
     ceiling; PBO/CO noted supported on the non-PRO 395.
   - Tallies: 425 performance (5 CHANGE / 372 TUNE / 48 KEEP; net +4
-    markers over 1.6.5, not itemized); 988 default. README gains
-    Elisions and Platform profile; CHANGELOG in kernel.org style.
+    markers over 1.6.5, not itemized); 988 default.
+  - readme: Elisions and Platform profile sections added.
+  - changelog: kernel.org style.
 
 
 1.6.5 - 2026-07-26
@@ -206,8 +218,9 @@ Changelog
     setting (45 Curve Shaper rows, NUMA Nodes, Above 4GB MMIO Limit,
     ASPM/D3Cold/AC-DC/fan-curve carry-overs); rationales name only
     options the setting offers.
-  - Settings 1,018 -> 1,010 (appendix rows miscounted). Tallies: 988
-    default; 421 performance (4 CHANGE / 371 TUNE / 46 KEEP).
+  - Settings 1,018 -> 1,010 (appendix rows miscounted).
+  - Tallies: 988 default; 421 performance (4 CHANGE / 371 TUNE / 46
+    KEEP).
 
 
 1.6.4 - 2026-07-04

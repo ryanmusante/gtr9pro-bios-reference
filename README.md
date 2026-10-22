@@ -1,6 +1,6 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.7.9-1793d1?style=flat-square)
+![doc](https://img.shields.io/badge/doc-1.7.10-1793d1?style=flat-square)
 
 Every BIOS Setup option exposed by the Beelink GTR9 Pro (v2.2) UEFI firmware,
 decoded from the firmware image.
@@ -80,16 +80,22 @@ Recommendations assume a CachyOS host configured by `ry-install` (7.164+).
 Where kernel and firmware govern the same behavior, the kernel setting wins at
 runtime.
 
-| Firmware area | Host interaction |
-| --- | --- |
-| CBS → NBIO → `IOMMU` | Host boots `iommu=pt`; keep the firmware default `Auto` (resolves Enabled) — NPU, KVM/VFIO passthrough and DMA isolation depend on it |
-| `UMA Frame buffer Size` | Recommendation `512M` (RADV/ROCm use GTT); host runs a `32G` carve by choice; from `ry-install` 7.217.0 GTT stays at the kernel default (~47 GiB, measured 2026-08-14) |
-| S3 / wake-source rows | All systemd sleep targets are masked; no runtime effect |
-| D3 / D3Cold rows | Still gate device idle at runtime; the wake-latency cost is marginal |
-| NPU (XDNA) rows | `amdxdna` loads; NPU-gated rows are live |
-| PCIe link-PM rows (ASPM, L1 substates, Clock PM) | `pcie_aspm.policy=performance` overrides per-port firmware policy |
-| `Global C-state Control` | Firmware twin of `processor.max_cstate=1` |
-| Network Stack / PXE | Disabled in firmware; systemd-boot, no UEFI network path |
+- **CBS → NBIO → `IOMMU`**: host boots `iommu=pt`; keep the firmware default
+  `Auto` (resolves Enabled) — NPU, KVM/VFIO passthrough and DMA isolation
+  depend on it.
+- **`UMA Frame buffer Size`**: recommendation `512M` (RADV/ROCm use GTT); host
+  runs a `32G` carve by choice; from `ry-install` 7.217.0 GTT stays at the
+  kernel default (~47 GiB, measured 2026-08-14).
+- **S3 / wake-source rows**: all systemd sleep targets are masked; no runtime
+  effect.
+- **D3 / D3Cold rows**: still gate device idle at runtime; the wake-latency
+  cost is marginal.
+- **NPU (XDNA) rows**: `amdxdna` loads; NPU-gated rows are live.
+- **PCIe link-PM rows** (ASPM, L1 substates, Clock PM):
+  `pcie_aspm.policy=performance` overrides per-port firmware policy.
+- **`Global C-state Control`**: firmware twin of `processor.max_cstate=1`.
+- **Network Stack / PXE**: disabled in firmware; systemd-boot, no UEFI network
+  path.
 
 ## Reading the document
 
@@ -125,5 +131,5 @@ runtime.
 ## Integrity (SHA256)
 
 ```text
-dbfa9ebf091ab2c87e692dd101f4fcdafba8df09e5f843107d45f7d9e2b012bc  GTR9Pro_BIOS_Settings.pdf
+630216adea4376d33caf44be56cecf562d3d0c51eaf9672b88ae3ad622453376  GTR9Pro_BIOS_Settings.pdf
 ```
