@@ -2,6 +2,50 @@ Changelog
 =========
 
 
+1.7.12 - 2026-11-22
+-------------------
+
+  - pdf: rebuilt from catalog data; the cover's platform profile is native
+    text again (1.7.11 overlaid it) and two aod rationales wrap normally
+    (221,588 -> 207,081 bytes).
+  - markers: CHANGE prints as a white-on-red badge, TUNE as an amber
+    triangle, KEEP as a green dot (all three were one red square), and
+    each tagged rationale line sits on a full-width band of its color; the
+    shapes keep the tags apart in grayscale. Legend and readme match.
+  - markers: SoC/Uncore OC Mode TUNE -> KEEP; its rationale says to leave
+    the default, like the six rows 1.7.11 moved.
+  - cbs: TjMax names its 0x5A default as 90 C and when to raise it, as
+    Thermal Control does; Fan Control drops an unsupported largest-gain
+    claim.
+  - setup, cbs: 15 fan-curve rows say lower temperature thresholds, not
+    lower start temperature.
+  - aod: All Core CO Magnitude reads "e.g.,".
+  - readme: GTR9 Pro 495 not covered; GTRPRPI1001C flashes only over
+    GTRPR0X; RAIDXpert2 note covers NVMe RAID mode; power-limits row says
+    chassis ceiling.
+  - Tallies: 437 performance (5 CHANGE / 377 TUNE / 55 KEEP); 988
+    default.
+
+
+1.7.11 - 2026-10-29
+-------------------
+
+  - cover: add a power-limits row for the flat 85 W (SPL, Fast and Slow
+    PPT 85000 mW; STAPM Boost 0 under its override; TjMax 0x5A).
+  - cover: fold the NPU row into IOMMU; offer amd_iommu=off, as ry-install's
+    README does, for a box using no NPU, VFIO or DMA isolation.
+  - aod: call 140 W the chassis ceiling in PPT Limit and name the host's
+    85000; mark the GFX CO Magnitude offset unconfirmed on Strix Halo.
+  - aod: test All Core CO Magnitude per core at single-thread and light
+    load too; an all-core stress run misses Curve Optimizer errors.
+  - markers: 6 leave-the-default rows TUNE -> KEEP (Max Memory Data
+    Clock Speed, AC limits x3, Memory Target Speed, UCLK DIV1 MODE).
+  - readme: replace the badge with a version line; add Files; match the
+    platform profile to the cover.
+  - Tallies: 437 performance (5 CHANGE / 378 TUNE / 54 KEEP); 988
+    default.
+
+
 1.7.10 - 2026-10-21
 -------------------
 
@@ -9,8 +53,8 @@ Changelog
     read "X (Auto)" like the rest; "leave default" and "default is"
     gain "the"; "leave on" reads "leave it on"; PBO + CO spaced.
   - pdf: compact content streams restored (230,105 -> 220,320 bytes).
-  - readme: Platform profile table becomes a list; no line passes 80
-    columns.
+  - readme: Platform profile table becomes a list; no line but the
+    sha256sum one passes 80 columns.
   - changelog: 1.7.9 entry trimmed; prefixes glued into 1.7.0 and 1.6.5
     bullets split out.
   - Tallies: 437 performance (5 CHANGE / 384 TUNE / 48 KEEP); 988

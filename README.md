@@ -1,9 +1,16 @@
 # Beelink GTR9 Pro — UEFI BIOS Setup Reference
 
-![doc](https://img.shields.io/badge/doc-1.7.10-1793d1?style=flat-square)
+**Version 1.7.12** · [Changelog](CHANGELOG.md)
 
 Every BIOS Setup option exposed by the Beelink GTR9 Pro (v2.2) UEFI firmware,
 decoded from the firmware image.
+
+## Files
+
+| File | Purpose |
+| --- | --- |
+| `GTR9Pro_BIOS_Settings.pdf` | The catalog, 46 pages, Letter |
+| `CHANGELOG.md` | Release history |
 
 ## Which revision do you have?
 
@@ -11,6 +18,9 @@ decoded from the firmware image.
 | --- | --- | --- |
 | GTR9 Pro v1.0 | Intel E610-XT2 | `P###` |
 | **GTR9 Pro v2.2** (this catalog) | Realtek RTL8127 | `GTRPR##` / `GTRPRPI…` |
+
+The GTR9 Pro 495 (Ryzen AI Max+ 495 series, Gorgon Halo) is a different
+platform; this catalog does not cover it.
 
 BIOS downloads: <https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS>
 
@@ -27,6 +37,7 @@ BIOS downloads: <https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS>
 `GTRPRPI1001C` is a Secure Boot key + AGESA/PI refresh of the `GTRPR0X` line;
 its six Setup-bearing modules are byte-identical (SHA-256) to `GTRPR07`, so
 setting names, types, ranges, NVRAM values and defaults apply to both.
+Beelink's folder note: only boards on a `GTRPR0X` image can flash it.
 
 ## Coverage
 
@@ -58,17 +69,19 @@ first/last option and the total option count.
 
 ## Performance markers
 
-Settings with a real performance dimension carry a red `■` marker with a
-recommended value for the Ryzen AI Max+ 395 and a short rationale, beside
-the blue `■` compiled-default marker. Rows without a red marker have no
-performance dimension — including safety limits and rows inert on this board;
-leave them at default.
+Settings with a real performance dimension carry a tag with a recommended
+value for the Ryzen AI Max+ 395 and a short rationale, beside the blue `■`
+compiled-default marker. CHANGE prints as a red badge, TUNE as an amber `▲`
+and KEEP as a green `●`; each tagged rationale line sits on a full-width band
+of its color, and the shapes keep the tags apart in grayscale. Unmarked rows
+have no performance dimension — including safety limits and rows inert on
+this board; leave them at default.
 
 | Tag | Meaning | Count |
 | --- | --- | ---: |
 | **CHANGE** | Change away from default for a clear gain | 5 |
-| **TUNE** | Performance-relevant but workload-specific / expert-only | 384 |
-| **KEEP** | Default already favors performance; leave it | 48 |
+| **TUNE** | Performance-relevant but workload-specific / expert-only | 377 |
+| **KEEP** | Default already favors performance; leave it | 55 |
 
 988 settings carry a default marker; 437 carry a performance marker. TUNE
 entries are starting points, not guaranteed-stable — record originals before
@@ -81,16 +94,23 @@ Where kernel and firmware govern the same behavior, the kernel setting wins at
 runtime.
 
 - **CBS → NBIO → `IOMMU`**: host boots `iommu=pt`; keep the firmware default
-  `Auto` (resolves Enabled) — NPU, KVM/VFIO passthrough and DMA isolation
-  depend on it.
+  `Auto` (resolves Enabled) — the NPU (`amdxdna` loads since `ry-install`
+  7.162), KVM/VFIO passthrough and DMA isolation depend on it.
+  `amd_iommu=off` with `amdxdna` blacklisted suits a box that uses none of
+  them.
 - **`UMA Frame buffer Size`**: recommendation `512M` (RADV/ROCm use GTT); host
   runs a `32G` carve by choice; from `ry-install` 7.217.0 GTT stays at the
   kernel default (~47 GiB, measured 2026-08-14).
+- **CBS → SMU Common Options, power limits**: the host holds a flat 85 W —
+  `SPL Control` and `PPT Control` Manual; `Sustained Power Limit`,
+  `Fast PPT Limit` and `Slow PPT Limit` `85000` (mW); `STAPM Boost Override`
+  1 with `STAPM Boost` 0; `TjMax` at its default `0x5A` (90 °C). The TUNE
+  and CHANGE notes on the power rows point toward the 140 W chassis ceiling
+  instead.
 - **S3 / wake-source rows**: all systemd sleep targets are masked; no runtime
   effect.
 - **D3 / D3Cold rows**: still gate device idle at runtime; the wake-latency
   cost is marginal.
-- **NPU (XDNA) rows**: `amdxdna` loads; NPU-gated rows are live.
 - **PCIe link-PM rows** (ASPM, L1 substates, Clock PM):
   `pcie_aspm.policy=performance` overrides per-port firmware policy.
 - **`Global C-state Control`**: firmware twin of `processor.max_cstate=1`.
@@ -125,11 +145,12 @@ runtime.
   NPU access, DMA isolation and reliable suspend.
 - **`TjMax`** prints its compiled default `0x5A`; AMD's rated Tjmax for the
   395 is 100 °C.
-- **RAIDXpert2** enumerates up to 32 SATA disks and 32 arrays; this board has
-  no SATA ports — cataloged for completeness, runtime fields annotated.
+- **RAIDXpert2** enumerates up to 32 disks and 32 arrays. This board has no
+  SATA ports, so it applies only with PBS `NVMe RAID mode` enabled (default
+  Disabled); runtime fields are annotated.
 
 ## Integrity (SHA256)
 
 ```text
-630216adea4376d33caf44be56cecf562d3d0c51eaf9672b88ae3ad622453376  GTR9Pro_BIOS_Settings.pdf
+ab931ae78c7ac51b242931d02742c0fb7ab26a5c798cf6696eddd3e92ed0fd31  GTR9Pro_BIOS_Settings.pdf
 ```
