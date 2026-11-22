@@ -17,7 +17,7 @@ decoded from the image.
 | Revision | NIC | BIOS series |
 | --- | --- | --- |
 | GTR9 Pro v1.0 | Intel E610-XT2 | `P###` |
-| **GTR9 Pro v2.2** (this catalog) | Realtek RTL8127 | `GTRPR##` / `GTRPRPI…` |
+| **GTR9 Pro v2.2** (this catalog) | Realtek RTL8127 | `GTRPR##`/`GTRPRPI…` |
 
 The GTR9 Pro 495 (Ryzen AI Max+ 495 series, Gorgon Halo) is a different
 platform; this catalog does not cover it.
@@ -50,7 +50,7 @@ Beelink's download-folder note, only boards on a `GTRPR0X` image can flash it.
 | AMD PBS | AmdPbsSetupDxe | 14 | 202 |
 | AMD Overclocking | AodDxe | 28 | 153 |
 | AMD PMF | AmdCpmPmfBoardDxe | 28 | 139 |
-| DASH / ASF | DashManagementDxe | 1 | 8 |
+| DASH/ASF | DashManagementDxe | 1 | 8 |
 | RAIDXpert2 | RAID form-set | 29 | 29 |
 
 Generic UEFI network-stack forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) and the four
@@ -96,13 +96,13 @@ Recommendations assume a CachyOS host configured by `ry-install` (7.164+).
 Where kernel and firmware govern the same behavior, the kernel setting wins at
 runtime.
 
-- **CBS → NBIO → `IOMMU`**: host boots `iommu=pt`; keep the firmware default
-  `Auto` (resolves Enabled) — the NPU (`amdxdna` loads since `ry-install`
-  7.162), KVM/VFIO passthrough and DMA isolation depend on it.
+- **CBS → NBIO → `IOMMU`**: the host boots `iommu=pt`; keep the firmware
+  default `Auto` (resolves to Enabled) — the NPU (`amdxdna` loads since
+  `ry-install` 7.162), KVM/VFIO passthrough and DMA isolation depend on it.
   `amd_iommu=off` with `amdxdna` blacklisted suits a box that uses none of
   them.
-- **`UMA Frame buffer Size`**: recommendation `512M` (RADV/ROCm use GTT); host
-  runs a `32G` carve by choice; from `ry-install` 7.217.0 GTT stays at the
+- **`UMA Frame buffer Size`**: recommendation `512M` (RADV/ROCm use GTT); the
+  host runs a `32G` carve by choice; from `ry-install` 7.217.0 GTT stays at the
   kernel default (~47 GiB, measured 2026-08-14).
 - **CBS → SMU Common Options, power limits**: the host holds a flat 85 W —
   `SPL Control` and `PPT Control` Manual; `Sustained Power Limit`,
@@ -110,28 +110,30 @@ runtime.
   1 with `STAPM Boost` 0; `TjMax` at its default `0x5A` (90 °C). The TUNE
   and CHANGE notes on the power rows point toward the 140 W chassis ceiling
   instead.
-- **S3 / wake-source rows**: all systemd sleep targets are masked; no runtime
+- **S3/wake-source rows**: all systemd sleep targets are masked; no runtime
   effect.
-- **D3 / D3Cold rows**: still gate device idle at runtime; the wake-latency
-  cost is marginal.
-- **PCIe link-PM rows** (ASPM, L1 substates, Clock PM):
-  `pcie_aspm.policy=performance` overrides per-port firmware policy.
-- **`Global C-state Control`**: firmware twin of `processor.max_cstate=1`.
-- **Network Stack / PXE**: disabled in firmware; systemd-boot, no UEFI network
-  path.
+- **D3/D3Cold rows**: still gate device idle at runtime; the wake-latency cost
+  is marginal.
+- **PCIe link-PM rows** (ASPM, L1 substates, Clock PM): the host boots
+  `pcie_aspm.policy=performance`, which overrides per-port firmware policy.
+- **`Global C-state Control`**: firmware-side twin of `processor.max_cstate=1`,
+  which the host boots.
+- **Network Stack / PXE**: disabled in firmware; the OS boots via systemd-boot
+  with no UEFI network path.
 
 ## Reading the document
 
-- Tables are Setting / Type / Values; options are separated by `·` and
-  bracketed values are raw NVRAM values (AMISCE/SCEWIN scripting).
+- Tables list Setting, Type and Values. Options, Submenus prompts and
+  Information fields are separated by `·`; bracketed values are raw NVRAM
+  values (AMISCE/SCEWIN scripting).
 - Defaults are compiled Standard Defaults; live values may differ.
 - Gray `Submenus` lines list every goto prompt on a form, including prompts
   whose target has no catalog entry; `Information fields` lines are read-only
   text rows.
 - Strings are verbatim, firmware typos included (`USB4 D3 Eanble`,
   `USBC Port Harware Disable Support`, `Minimun Frequency`, …).
-- Many options are suppress-if / grayout-if hidden; the catalog is a superset
-  of any one unit's display.
+- Many options are suppress-if/grayout-if hidden; the catalog is a superset of
+  any one unit's display.
 
 ## Notes on specific settings
 
@@ -152,8 +154,8 @@ runtime.
   SATA ports, so it applies only with PBS `NVMe RAID mode` enabled (default
   Disabled); runtime fields are annotated.
 
-## Integrity (SHA256)
+## Integrity (SHA-256)
 
 ```text
-d2d7a3632da56723e1821a248e9cd13327c1f363bc84b6eeec9fa80de622f108  GTR9Pro_BIOS_Settings.pdf
+e517723acbbe679cf65c17a1ab181e50ecae99106ccf3617238247a4ac014028  GTR9Pro_BIOS_Settings.pdf
 ```

@@ -7,7 +7,9 @@ Changelog
 
   - pdf: rebuilt from catalog data; the cover's platform profile is native
     text again (1.7.11 overlaid it) and two aod rationales wrap normally
-    (221,588 -> 208,119 bytes).
+    (221,588 -> 208,846 bytes).
+  - pdf: 4.5 pt above each form title, and a form's title and gray lines
+    stay with its first row (two headings sat alone at a page bottom).
   - Markers: CHANGE prints as a white-on-red badge, TUNE as an amber
     triangle, KEEP as a green dot (all three were one red square); each
     tagged rationale line sits on a full-width band of its color.
@@ -17,31 +19,41 @@ Changelog
     then the reason ("Label -- ..." leads are gone); Auto that resolves
     reads Auto (Enabled), not 1.7.10's Enabled (Auto). A legend row
     explains the lead.
-  - Rationales: 10 name a choice their text left open: Global C-state
-    Control, Power Down Enable, Link ECC and TSME = Disabled; System
-    Configuration = 140W; Fast PPT, Slow PPT and PPT Limit = up to
+  - Rationales: 10 now name a choice their text left open (Global
+    C-state Control, Power Down Enable, Link ECC and TSME = Disabled;
+    System Configuration = 140W; Fast PPT, Slow PPT and PPT Limit = up to
     140000; Temperature Hysteresis = default; Max GPU Boost Clock
-    Override = 25 MHz, then step up.
+    Override = 25 MHz, then step up).
   - Submenus and Information fields separate items with a middle dot, as
-    options do (were the default marker's square and commas); RAID
-    runtime annotations all read "populated at runtime".
+    options do (were the default marker's square and commas), and their
+    labels take a colon. RAID runtime annotations all read "populated at
+    runtime"; Text and Password rows read "field", like Date and Time.
   - cbs: TjMax names its 0x5A default as 90 C and when to raise it; Fan
     Control drops an unsupported largest-gain claim; STAPM Boost Override
     hands boost to the STAPM Boost row instead of claiming to extend it.
   - setup, cbs: 15 fan-curve rows lead with lower temperatures / higher
     PWM (1.7.11 said lower start temperature).
   - aod: All Core CO Magnitude reads "e.g.,".
-  - Rationales tidied: "vs.", no "=" as a verb, "leave it to firmware",
-    word order (AVX512, Core Count Control); PBO Limits fragment joined;
+  - Rationales tidied: "vs.", "I/O", "120 W", no "=" as a verb, "leave
+    it to firmware", "the SMU default", PBO + Curve Optimizer spelled
+    out; word order, parallel phrasing and missing objects fixed (AVX512,
+    Core Count Control, TDC and CCX TDC Limits, EDC_VDDCR_VDD, Fan Table
+    Control, LCLK Frequency Control, Platform Thermal Throttle Ctrl);
     Sustained Power Limit names the 140 W chassis ceiling.
+  - Slashes close up between single words: AMISCE/SCEWIN,
+    suppress-if/grayout-if, OK/Cancel/Yes/No, IPv4/IPv6, Decline/Accept,
+    DASH/ASF Management, Sleep/D3.
   - Legend: CHANGE reads "away from the default", Unmarked "leave them at
-    default", Submenus "form-sets"; Order is no longer a comma splice.
+    default", Submenus "form-sets"; Columns names every list that uses
+    the dot; Elisions counts options; Order is no longer a comma splice.
     Platform profile: the IOMMU, PCIe link-PM and C-states rows open "The
-    host boots".
+    host boots"; IOMMU Auto "resolves to Enabled".
   - readme: GTR9 Pro 495 not covered; GTRPRPI1001C flashes only over
     GTRPR0X; RAIDXpert2 note covers NVMe RAID mode; power-limits row says
     chassis ceiling; TjMax note gives 90 C; markers text describes the
-    lead and the tag table matches the legend; form-set spelling.
+    lead and the tag table matches the legend; the separator is named;
+    platform profile bullets read as the pdf does; form-set, SHA-256 and
+    slash spelling match the pdf.
   - changelog: Markers prefixes capitalized; 1.7.2 and 1.6.5 tally lines
     match the rest; 1.7.5 spells form-sets.
   - Tallies: 437 performance (5 CHANGE / 377 TUNE / 55 KEEP); 988
