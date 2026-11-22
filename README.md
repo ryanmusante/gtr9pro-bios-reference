@@ -3,7 +3,7 @@
 **Version 1.7.12** · [Changelog](CHANGELOG.md)
 
 Every BIOS Setup option exposed by the Beelink GTR9 Pro (v2.2) UEFI firmware,
-decoded from the firmware image.
+decoded from the image.
 
 ## Files
 
@@ -36,8 +36,8 @@ BIOS downloads: <https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR9-395%2FBIOS>
 
 `GTRPRPI1001C` is a Secure Boot key + AGESA/PI refresh of the `GTRPR0X` line;
 its six Setup-bearing modules are byte-identical (SHA-256) to `GTRPR07`, so
-setting names, types, ranges, NVRAM values and defaults apply to both.
-Beelink's folder note: only boards on a `GTRPR0X` image can flash it.
+setting names, types, ranges, NVRAM values and defaults apply to both. Per
+Beelink's download-folder note, only boards on a `GTRPR0X` image can flash it.
 
 ## Coverage
 
@@ -51,10 +51,10 @@ Beelink's folder note: only boards on a `GTRPR0X` image can flash it.
 | AMD Overclocking | AodDxe | 28 | 153 |
 | AMD PMF | AmdCpmPmfBoardDxe | 28 | 139 |
 | DASH / ASF | DashManagementDxe | 1 | 8 |
-| RAIDXpert2 | RAID formset | 29 | 29 |
+| RAIDXpert2 | RAID form-set | 29 | 29 |
 
 Generic UEFI network-stack forms (IPv4/IPv6/VLAN/HTTP/TLS/PXE) and the four
-Setup-referenced driver formsets (Super IO Configuration, SIO Common Setting,
+Setup-referenced driver form-sets (Super IO Configuration, SIO Common Setting,
 PCI Subsystem Settings, NVMe Configuration) come from shared drivers, not this
 board's Setup modules; they are listed in Appendix A and not counted. Action,
 confirmation and runtime-generated prompts (BBS boot priorities, Secure Boot
@@ -69,22 +69,22 @@ first/last option and the total option count.
 
 ## Performance markers
 
-Settings with a real performance dimension carry a tag with a recommended
-value for the Ryzen AI Max+ 395 and a short rationale, beside the blue `■`
-compiled-default marker. CHANGE prints as a red badge, TUNE as an amber `▲`
-and KEEP as a green `●`; each tagged rationale line sits on a full-width band
-of its color, and the shapes keep the tags apart in grayscale. Unmarked rows
-have no performance dimension — including safety limits and rows inert on
-this board; leave them at default.
+Settings with a real performance dimension carry a tag, a recommended value
+for the Ryzen AI Max+ 395 and a short rationale; a blue `■` marks the compiled
+default. CHANGE prints as a red badge, TUNE as an amber `▲` and KEEP as a
+green `●`; each tagged rationale line sits on a full-width band of its color,
+and the shapes keep the tags apart in grayscale. Unmarked rows have no
+performance dimension — including safety limits and rows inert on this board;
+leave them at default.
 
 | Tag | Meaning | Count |
 | --- | --- | ---: |
-| **CHANGE** | Change away from default for a clear gain | 5 |
-| **TUNE** | Performance-relevant but workload-specific / expert-only | 377 |
+| **CHANGE** | Change away from the default for a clear gain | 5 |
+| **TUNE** | Performance-relevant but workload-specific or expert-only | 377 |
 | **KEEP** | Default already favors performance; leave it | 55 |
 
 988 settings carry a default marker; 437 carry a performance marker. TUNE
-entries are starting points, not guaranteed-stable — record originals before
+entries are starting points, not guaranteed stable; record originals before
 changing CBS, AMD Overclocking or PMF settings.
 
 ## Platform profile
@@ -140,11 +140,11 @@ runtime.
 - **`UMA Frame buffer Size`** defaults to `96G [0x18000]`, leaving ~31 GiB to
   the OS on a 128 GB unit; RADV and ROCm use GTT, so `512M [0x200]` restores
   the pool without costing the iGPU.
-- **`IOMMU`** disabled measures ~6% higher iGPU memory read (234 vs 221 GB/s,
+- **`IOMMU`** disabled measures ~6% higher iGPU memory read (234 vs. 221 GB/s,
   community strix-halo-testing runs by lhl) at the cost of VFIO passthrough,
   NPU access, DMA isolation and reliable suspend.
-- **`TjMax`** prints its compiled default `0x5A`; AMD's rated Tjmax for the
-  395 is 100 °C.
+- **`TjMax`** defaults to `0x5A` (90 °C), below AMD's 100 °C Tjmax rating for
+  the 395.
 - **RAIDXpert2** enumerates up to 32 disks and 32 arrays. This board has no
   SATA ports, so it applies only with PBS `NVMe RAID mode` enabled (default
   Disabled); runtime fields are annotated.
@@ -152,5 +152,5 @@ runtime.
 ## Integrity (SHA256)
 
 ```text
-ab931ae78c7ac51b242931d02742c0fb7ab26a5c798cf6696eddd3e92ed0fd31  GTR9Pro_BIOS_Settings.pdf
+d7785c71743069adf407a3e58c70c936eb187a909cfb82d0ec2c1d194a2ddff0  GTR9Pro_BIOS_Settings.pdf
 ```
