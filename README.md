@@ -69,8 +69,11 @@ first/last option and the total option count.
 
 ## Performance markers
 
-Settings with a real performance dimension carry a tag, a recommended value
-for the Ryzen AI Max+ 395 and a short rationale; a blue `■` marks the compiled
+Settings with a real performance dimension carry a tag and a short rationale
+that opens with the recommended setting for the Ryzen AI Max+ 395, then the
+reason: `▲ TUNE = Disabled. Shortens POST when no network boot is used.`
+`Auto (Enabled)` means leave Auto, which resolves to Enabled; numeric rows give
+a value, `default` or a direction (`higher`). A blue `■` marks the compiled
 default. CHANGE prints as a red badge, TUNE as an amber `▲` and KEEP as a
 green `●`; each tagged rationale line sits on a full-width band of its color,
 and the shapes keep the tags apart in grayscale. Unmarked rows have no
@@ -152,5 +155,5 @@ runtime.
 ## Integrity (SHA256)
 
 ```text
-d7785c71743069adf407a3e58c70c936eb187a909cfb82d0ec2c1d194a2ddff0  GTR9Pro_BIOS_Settings.pdf
+d2d7a3632da56723e1821a248e9cd13327c1f363bc84b6eeec9fa80de622f108  GTR9Pro_BIOS_Settings.pdf
 ```

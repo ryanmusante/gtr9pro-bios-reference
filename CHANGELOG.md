@@ -7,33 +7,41 @@ Changelog
 
   - pdf: rebuilt from catalog data; the cover's platform profile is native
     text again (1.7.11 overlaid it) and two aod rationales wrap normally
-    (221,588 -> 207,241 bytes).
+    (221,588 -> 208,119 bytes).
   - Markers: CHANGE prints as a white-on-red badge, TUNE as an amber
     triangle, KEEP as a green dot (all three were one red square); each
     tagged rationale line sits on a full-width band of its color.
   - Markers: SoC/Uncore OC Mode TUNE -> KEEP; its rationale says to leave
     the default, like the six rows 1.7.11 moved.
+  - Rationales: every tagged one opens with TAG = recommended setting,
+    then the reason ("Label -- ..." leads are gone); Auto that resolves
+    reads Auto (Enabled), not 1.7.10's Enabled (Auto). A legend row
+    explains the lead.
+  - Rationales: 10 name a choice their text left open: Global C-state
+    Control, Power Down Enable, Link ECC and TSME = Disabled; System
+    Configuration = 140W; Fast PPT, Slow PPT and PPT Limit = up to
+    140000; Temperature Hysteresis = default; Max GPU Boost Clock
+    Override = 25 MHz, then step up.
   - Submenus and Information fields separate items with a middle dot, as
     options do (were the default marker's square and commas); RAID
     runtime annotations all read "populated at runtime".
   - cbs: TjMax names its 0x5A default as 90 C and when to raise it; Fan
     Control drops an unsupported largest-gain claim; STAPM Boost Override
     hands boost to the STAPM Boost row instead of claiming to extend it.
-  - setup, cbs: 15 fan-curve rows say lower temperature thresholds, not
-    lower start temperature.
+  - setup, cbs: 15 fan-curve rows lead with lower temperatures / higher
+    PWM (1.7.11 said lower start temperature).
   - aod: All Core CO Magnitude reads "e.g.,".
-  - Rationales tidied (15 rows): CPU Smart Fan2 Mode, AVX512, L1 Stream
-    HW Prefetcher, DF Cstates, LPDDR RFM, DVFSC Mode, Bank Swap, Core
-    Count Control, PBO Limits, IOMMU ("vs."), AC limits x3 and PPT Limit
-    (no "=" as a verb), Sustained Power Limit (140 W chassis ceiling).
+  - Rationales tidied: "vs.", no "=" as a verb, "leave it to firmware",
+    word order (AVX512, Core Count Control); PBO Limits fragment joined;
+    Sustained Power Limit names the 140 W chassis ceiling.
   - Legend: CHANGE reads "away from the default", Unmarked "leave them at
     default", Submenus "form-sets"; Order is no longer a comma splice.
     Platform profile: the IOMMU, PCIe link-PM and C-states rows open "The
     host boots".
   - readme: GTR9 Pro 495 not covered; GTRPRPI1001C flashes only over
     GTRPR0X; RAIDXpert2 note covers NVMe RAID mode; power-limits row says
-    chassis ceiling; TjMax note gives 90 C; markers text and tag table
-    match the legend; form-set spelling.
+    chassis ceiling; TjMax note gives 90 C; markers text describes the
+    lead and the tag table matches the legend; form-set spelling.
   - changelog: Markers prefixes capitalized; 1.7.2 and 1.6.5 tally lines
     match the rest; 1.7.5 spells form-sets.
   - Tallies: 437 performance (5 CHANGE / 377 TUNE / 55 KEEP); 988
